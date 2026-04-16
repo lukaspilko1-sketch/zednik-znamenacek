@@ -313,6 +313,10 @@ function nav(id, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('sec-' + id).classList.add('active');
+  // Lazy render dynamických sekcí při každém přepnutí
+  if (id === 'sluzby')    renderSluzby();
+  if (id === 'hodnoceni') renderHodnoceni();
+  if (id === 'reference') renderRefGrid();
 }
 
 /* ── Toast ── */
