@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Správa webu – Znamenáček</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#f5f3ef;color:#1c1611;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* layout */
+.topbar{background:#1c1410;color:#fff;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.topbar-brand{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.topbar-brand span{color:#c9a87c}
+.topbar-meta{font-size:12px;color:rgba(255,255,255,.4)}
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{width:220px;flex-shrink:0;background:#fff;border-right:1px solid #e8e3dc;padding:1.5rem 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+.sidebar-section{padding:0 1rem .75rem;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:#b8a99a;margin-top:1.25rem}
+.sidebar-link{display:flex;align-items:center;gap:10px;padding:.55rem 1.25rem;font-size:13.5px;font-weight:500;color:#56423d;cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.sidebar-link:hover{background:#faf7f3;color:#9c4329}
+.sidebar-link.active{background:#fdf5f2;border-left-color:#9c4329;color:#9c4329}
+.sidebar-link .icon{font-size:16px;width:18px;text-align:center;flex-shrink:0}
+.main{flex:1;padding:2rem 2.5rem;max-width:900px}
+
+/* cards */
+.page-title{font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:.25rem}
+.page-sub{font-size:13px;color:#89756e;margin-bottom:2rem}
+.card{background:#fff;border:1px solid #e8e3dc;border-radius:8px;margin-bottom:1.25rem;overflow:hidden}
+.card-head{padding:1rem 1.25rem;border-bottom:1px solid #f0ece6;display:flex;align-items:center;justify-content:space-between}
+.card-head-title{font-size:13px;font-weight:700;color:#56423d;text-transform:uppercase;letter-spacing:.08em}
+.card-body{padding:1.25rem}
+
+/* form elements */
+.field{margin-bottom:1rem}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:12px;font-weight:700;color:#89756e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+.field input,.field textarea{width:100%;padding:8px 11px;font-size:14px;font-family:inherit;border:1px solid #ddd6cd;border-radius:5px;background:#fdfcfb;color:#1c1611;transition:border-color .15s,box-shadow .15s}
+.field input:focus,.field textarea:focus{outline:none;border-color:#9c4329;box-shadow:0 0 0 3px rgba(156,67,41,.1)}
+.field textarea{resize:vertical;min-height:72px;line-height:1.6}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.field-row{grid-template-columns:1fr}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;font-size:13px;font-weight:600;font-family:inherit;border-radius:5px;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.btn-primary{background:#9c4329;color:#fff}
+.btn-primary:hover{background:#7d2c14}
+.btn-secondary{background:#fff;color:#56423d;border-color:#ddd6cd}
+.btn-secondary:hover{border-color:#9c4329;color:#9c4329}
+.btn-danger{background:#fff;color:#c0392b;border-color:#f5c6c6}
+.btn-danger:hover{background:#fff5f5}
+.btn-sm{padding:5px 11px;font-size:12px}
+.save-row{display:flex;align-items:center;gap:10px;margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid #f0ece6}
+
+/* reference grid */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.ref-item{border:1px solid #e8e3dc;border-radius:6px;overflow:hidden;background:#fdfcfb}
+.ref-item img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.ref-item-body{padding:8px 10px}
+.ref-item-title{font-size:12px;font-weight:600;color:#1c1611;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ref-item-meta{font-size:11px;color:#89756e}
+.ref-item-actions{display:flex;gap:4px;margin-top:6px}
+
+/* drop zone */
+.dropzone{border:2px dashed #ddd6cd;border-radius:8px;padding:2rem;text-align:center;cursor:pointer;transition:all .2s;background:#fdfcfb}
+.dropzone:hover,.dropzone.drag{border-color:#9c4329;background:#fdf5f2}
+.dropzone p{font-size:13px;color:#89756e;margin-top:.5rem}
+.dropzone .dz-icon{font-size:2rem;color:#c9a87c}
+
+/* reference form */
+.ref-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.ref-form-grid{grid-template-columns:1fr}}
+
+/* hodnoceni */
+.review-item{border:1px solid #e8e3dc;border-radius:6px;padding:12px 14px;margin-bottom:10px;background:#fdfcfb}
+.review-item .review-text{font-size:13px;font-style:italic;color:#56423d;margin-bottom:8px;line-height:1.6}
+.review-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:#89756e}
+.review-meta strong{color:#1c1611;font-size:13px}
+.review-actions{display:flex;gap:4px;margin-top:8px}
+
+/* toast */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:#2d6a4f;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:500;opacity:0;transform:translateY(6px);transition:all .25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.error{background:#c0392b}
+
+/* sections */
+.section{display:none}
+.section.active{display:block}
+
+/* modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:10px;padding:1.5rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:1.25rem}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1.25rem}
+
+/* kategorie badge */
+.kat-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:3px;background:#fdf5f2;color:#9c4329;border:1px solid #f5d5c8}
+select{width:100%;padding:8px 11px;font-size:14px;font-family:inherit;border:1px solid #ddd6cd;border-radius:5px;background:#fdfcfb;color:#1c1611}
+select:focus{outline:none;border-color:#9c4329}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">Správa webu <span>— Jiří Znamenáček</span></div>
+  <div class="topbar-meta" id="lastSaved">Načítám data…</div>
+</div>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-section">Obsah</div>
+    <div class="sidebar-link active" onclick="nav('hero',this)"><span class="icon">⬡</span> Úvod (Hero)</div>
+    <div class="sidebar-link" onclick="nav('kontakt',this)"><span class="icon">✆</span> Kontaktní údaje</div>
+    <div class="sidebar-link" onclick="nav('o_mne',this)"><span class="icon">◎</span> O mně</div>
+    <div class="sidebar-link" onclick="nav('sluzby',this)"><span class="icon">▦</span> Služby</div>
+    <div class="sidebar-section">Galerie</div>
+    <div class="sidebar-link" onclick="nav('reference',this)"><span class="icon">▣</span> Reference &amp; fotky</div>
+    <div class="sidebar-section">Zákazníci</div>
+    <div class="sidebar-link" onclick="nav('hodnoceni',this)"><span class="icon">❝</span> Hodnocení</div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <!-- ═══ HERO ═══ -->
+    <div class="section active" id="sec-hero">
+      <div class="page-title">Úvod (Hero)</div>
+      <div class="page-sub">Hlavní nadpis a perex na úvodní stránce</div>
+      <div class="card">
+        <div class="card-head"><span class="card-head-title">Nadpis</span></div>
+        <div class="card-body">
+          <div class="field"><label>Řádek 1</label><input type="text" id="hero_nadpis_radek1"/></div>
+          <div class="field-row">
+            <div class="field"><label>Řádek 2 (kurzíva)</label><input type="text" id="hero_nadpis_radek2"/></div>
+            <div class="field"><label>Řádek 3 (kurzíva)</label><input type="text" id="hero_nadpis_radek3"/></div>
+          </div>
+          <div class="field"><label>Perex (popis pod nadpisem)</label><textarea id="hero_perex" rows="2"></textarea></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-head-title">Statistiky pod hero</span></div>
+        <div class="card-body">
+          <div class="field-row">
+            <div class="field"><label>Let praxe (text)</label><input type="text" id="hero_stat_leta"/></div>
+            <div class="field"><label>Realizací (text)</label><input type="text" id="hero_stat_realizace"/></div>
+          </div>
+        </div>
+      </div>
+      <div class="save-row">
+        <button class="btn btn-primary" onclick="save('hero')">Uložit změny</button>
+      </div>
+    </div>
+
+    <!-- ═══ KONTAKT ═══ -->
+    <div class="section" id="sec-kontakt">
+      <div class="page-title">Kontaktní údaje</div>
+      <div class="page-sub">Zobrazují se v sekci Kontakt, footeru a v meta datech</div>
+      <div class="card">
+        <div class="card-body">
+          <div class="field"><label>Celé jméno / název firmy</label><input type="text" id="kontakt_jmeno"/></div>
+          <div class="field-row">
+            <div class="field"><label>Telefon</label><input type="tel" id="kontakt_telefon"/></div>
+            <div class="field"><label>E-mail</label><input type="email" id="kontakt_email"/></div>
+          </div>
+          <div class="field"><label>Oblast působení</label><input type="text" id="kontakt_oblast"/></div>
+          <div class="field-row">
+            <div class="field"><label>IČO</label><input type="text" id="kontakt_ico"/></div>
+            <div class="field"><label>Sídlo</label><input type="text" id="kontakt_sidlo"/></div>
+          </div>
+        </div>
+      </div>
+      <div class="save-row">
+        <button class="btn btn-primary" onclick="save('kontakt')">Uložit změny</button>
+      </div>
+    </div>
+
+    <!-- ═══ O MNĚ ═══ -->
+    <div class="section" id="sec-o_mne">
+      <div class="page-title">O mně</div>
+      <div class="page-sub">Sekce s osobním profilem a výhodami</div>
+      <div class="card">
+        <div class="card-body">
+          <div class="field"><label>Nadpis</label><input type="text" id="o_mne_nadpis"/></div>
+          <div class="field"><label>Odstavec 1</label><textarea id="o_mne_text1" rows="4"></textarea></div>
+          <div class="field"><label>Odstavec 2</label><textarea id="o_mne_text2" rows="4"></textarea></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-head-title">Klíčové body (3 odrážky)</span></div>
+        <div class="card-body">
+          <div class="field"><label>Bod 1</label><input type="text" id="o_mne_bullet1"/></div>
+          <div class="field"><label>Bod 2</label><input type="text" id="o_mne_bullet2"/></div>
+          <div class="field"><label>Bod 3</label><input type="text" id="o_mne_bullet3"/></div>
+        </div>
+      </div>
+      <div class="save-row">
+        <button class="btn btn-primary" onclick="save('o_mne')">Uložit změny</button>
+      </div>
+    </div>
+
+    <!-- ═══ SLUŽBY ═══ -->
+    <div class="section" id="sec-sluzby">
+      <div class="page-title">Služby</div>
+      <div class="page-sub">7 karet na úvodní stránce. Upravte názvy a popisy.</div>
+      <div id="sluzby-list"></div>
+      <div class="save-row">
+        <button class="btn btn-primary" onclick="save('sluzby')">Uložit všechny služby</button>
+      </div>
+    </div>
+
+    <!-- ═══ REFERENCE ═══ -->
+    <div class="section" id="sec-reference">
+      <div class="page-title">Reference &amp; fotky</div>
+      <div class="page-sub">Přidávejte fotky dokončených zakázek. Zobrazují se na stránce reference.html.</div>
+
+      <div class="card">
+        <div class="card-head"><span class="card-head-title">Přidat novou fotku</span></div>
+        <div class="card-body">
+          <div class="dropzone" id="dropzone" onclick="document.getElementById('fileInput').click()">
+            <div class="dz-icon">+</div>
+            <p>Klikněte nebo přetáhněte fotku sem</p>
+            <p style="font-size:11px;color:#b8a99a;margin-top:4px">JPG, PNG, WebP — max. 8 MB</p>
+          </div>
+          <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="prepareUpload(this.files[0])"/>
+          <div id="upload-preview" style="display:none;margin-top:1rem">
+            <img id="preview-img" style="width:100%;max-height:220px;object-fit:cover;border-radius:6px;margin-bottom:1rem;border:1px solid #e8e3dc"/>
+            <div class="ref-form-grid">
+              <div class="field"><label>Název projektu</label><input type="text" id="new_nazev" placeholder="Omítky – rodinný dům"/></div>
+              <div class="field"><label>Místo</label><input type="text" id="new_misto" placeholder="Praha"/></div>
+              <div class="field"><label>Rok</label><input type="number" id="new_rok" min="2000" max="2030" placeholder="2024"/></div>
+              <div class="field">
+                <label>Kategorie</label>
+                <select id="new_kategorie">
+                  <option value="zdeni">Zdění</option>
+                  <option value="omitky">Omítky</option>
+                  <option value="obklady">Obklady &amp; dlažby</option>
+                  <option value="rekonstrukce">Rekonstrukce</option>
+                </select>
+              </div>
+              <div class="field" style="grid-column:1/-1"><label>Popis (1–2 věty)</label><textarea id="new_popis" rows="2" placeholder="Stručný popis projektu…"></textarea></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:12px">
+              <button class="btn btn-primary" onclick="uploadRef()">Přidat referenci</button>
+              <button class="btn btn-secondary" onclick="cancelUpload()">Zrušit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-head-title">Nahrané reference</span>
+          <span id="ref-count" style="font-size:12px;color:#89756e"></span>
+        </div>
+        <div class="card-body">
+          <div class="ref-grid" id="ref-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ HODNOCENÍ ═══ -->
+    <div class="section" id="sec-hodnoceni">
+      <div class="page-title">Hodnocení zákazníků</div>
+      <div class="page-sub">Tři citáty v červené sekci na úvodní stránce</div>
+      <div id="hodnoceni-list"></div>
+      <div class="save-row">
+        <button class="btn btn-primary" onclick="save('hodnoceni')">Uložit hodnocení</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Modal pro edit reference -->
+<div class="modal-bg" id="refModal">
+  <div class="modal">
+    <div class="modal-title">Upravit referenci</div>
+    <div class="field"><label>Název projektu</label><input type="text" id="edit_nazev"/></div>
+    <div class="field-row">
+      <div class="field"><label>Místo</label><input type="text" id="edit_misto"/></div>
+      <div class="field"><label>Rok</label><input type="number" id="edit_rok"/></div>
+    </div>
+    <div class="field">
+      <label>Kategorie</label>
+      <select id="edit_kategorie">
+        <option value="zdeni">Zdění</option>
+        <option value="omitky">Omítky</option>
+        <option value="obklady">Obklady &amp; dlažby</option>
+        <option value="rekonstrukce">Rekonstrukce</option>
+      </select>
+    </div>
+    <div class="field"><label>Popis</label><textarea id="edit_popis" rows="3"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-secondary" onclick="closeModal()">Zrušit</button>
+      <button class="btn btn-primary" onclick="saveRefEdit()">Uložit</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let DATA = {};
+let editingRefIdx = null;
+let pendingFile = null;
+
+/* ── Navigace ── */
+function nav(id, el) {
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('sec-' + id).classList.add('active');
+}
+
+/* ── Toast ── */
+function toast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = (type === 'error' ? '✗ ' : '✓ ') + msg;
+  t.className = 'toast show' + (type === 'error' ? ' error' : '');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ── Načtení dat ── */
+async function loadData() {
+  try {
+    const r = await fetch('../content.json?t=' + Date.now());
+    DATA = await r.json();
+    document.getElementById('lastSaved').textContent = 'Data načtena';
+    fillForms();
+  } catch(e) {
+    toast('Nepodařilo se načíst content.json', 'error');
+    document.getElementById('lastSaved').textContent = 'Chyba načítání';
+  }
+}
+
+/* ── Vyplnění formulářů ── */
+function fillForms() {
+  // hero
+  setVal('hero_nadpis_radek1', DATA.hero?.nadpis_radek1);
+  setVal('hero_nadpis_radek2', DATA.hero?.nadpis_radek2);
+  setVal('hero_nadpis_radek3', DATA.hero?.nadpis_radek3);
+  setVal('hero_perex',         DATA.hero?.perex);
+  setVal('hero_stat_leta',     DATA.hero?.stat_leta);
+  setVal('hero_stat_realizace',DATA.hero?.stat_realizace);
+  // kontakt
+  setVal('kontakt_jmeno',   DATA.kontakt?.jmeno);
+  setVal('kontakt_telefon', DATA.kontakt?.telefon);
+  setVal('kontakt_email',   DATA.kontakt?.email);
+  setVal('kontakt_oblast',  DATA.kontakt?.oblast);
+  setVal('kontakt_ico',     DATA.kontakt?.ico);
+  setVal('kontakt_sidlo',   DATA.kontakt?.sidlo);
+  // o mně
+  setVal('o_mne_nadpis',  DATA.o_mne?.nadpis);
+  setVal('o_mne_text1',   DATA.o_mne?.text1);
+  setVal('o_mne_text2',   DATA.o_mne?.text2);
+  setVal('o_mne_bullet1', DATA.o_mne?.bullet1);
+  setVal('o_mne_bullet2', DATA.o_mne?.bullet2);
+  setVal('o_mne_bullet3', DATA.o_mne?.bullet3);
+  // sluzby
+  renderSluzby();
+  // reference
+  renderRefGrid();
+  // hodnoceni
+  renderHodnoceni();
+}
+
+function setVal(id, val) {
+  const el = document.getElementById(id);
+  if (el && val !== undefined) el.value = val;
+}
+
+/* ── Uložení sekce ── */
+async function save(section) {
+  // Přečteme zpět z formuláře do DATA
+  if (section === 'hero') {
+    DATA.hero.nadpis_radek1  = document.getElementById('hero_nadpis_radek1').value;
+    DATA.hero.nadpis_radek2  = document.getElementById('hero_nadpis_radek2').value;
+    DATA.hero.nadpis_radek3  = document.getElementById('hero_nadpis_radek3').value;
+    DATA.hero.perex          = document.getElementById('hero_perex').value;
+    DATA.hero.stat_leta      = document.getElementById('hero_stat_leta').value;
+    DATA.hero.stat_realizace = document.getElementById('hero_stat_realizace').value;
+  }
+  if (section === 'kontakt') {
+    DATA.kontakt.jmeno   = document.getElementById('kontakt_jmeno').value;
+    DATA.kontakt.telefon = document.getElementById('kontakt_telefon').value;
+    DATA.kontakt.email   = document.getElementById('kontakt_email').value;
+    DATA.kontakt.oblast  = document.getElementById('kontakt_oblast').value;
+    DATA.kontakt.ico     = document.getElementById('kontakt_ico').value;
+    DATA.kontakt.sidlo   = document.getElementById('kontakt_sidlo').value;
+  }
+  if (section === 'o_mne') {
+    DATA.o_mne.nadpis  = document.getElementById('o_mne_nadpis').value;
+    DATA.o_mne.text1   = document.getElementById('o_mne_text1').value;
+    DATA.o_mne.text2   = document.getElementById('o_mne_text2').value;
+    DATA.o_mne.bullet1 = document.getElementById('o_mne_bullet1').value;
+    DATA.o_mne.bullet2 = document.getElementById('o_mne_bullet2').value;
+    DATA.o_mne.bullet3 = document.getElementById('o_mne_bullet3').value;
+  }
+  if (section === 'sluzby') {
+    DATA.sluzby.forEach((s, i) => {
+      s.kategorie = document.getElementById('sl_kat_' + i)?.value || s.kategorie;
+      s.nazev     = document.getElementById('sl_nazev_' + i)?.value || s.nazev;
+      s.popis     = document.getElementById('sl_popis_' + i)?.value || s.popis;
+    });
+  }
+  if (section === 'hodnoceni') {
+    DATA.hodnoceni.forEach((h, i) => {
+      h.text  = document.getElementById('hod_text_' + i)?.value || h.text;
+      h.autor = document.getElementById('hod_autor_' + i)?.value || h.autor;
+      h.mesto = document.getElementById('hod_mesto_' + i)?.value || h.mesto;
+    });
+  }
+
+  await saveJSON();
+}
+
+async function saveJSON() {
+  try {
+    const fd = new FormData();
+    fd.append('data', JSON.stringify(DATA, null, 2));
+    const r = await fetch('save.php', { method: 'POST', body: fd });
+    const j = await r.json();
+    if (j.ok) {
+      toast('Uloženo');
+      const now = new Date();
+      document.getElementById('lastSaved').textContent =
+        'Uloženo ' + now.toLocaleTimeString('cs-CZ', {hour:'2-digit',minute:'2-digit'});
+    } else {
+      toast(j.error || 'Chyba ukládání', 'error');
+    }
+  } catch(e) {
+    toast('Nelze kontaktovat server', 'error');
+  }
+}
+
+/* ── Render: Služby ── */
+function renderSluzby() {
+  const list = document.getElementById('sluzby-list');
+  list.innerHTML = (DATA.sluzby || []).map((s, i) => `
+    <div class="card">
+      <div class="card-head">
+        <span class="card-head-title">${s.id} — <span class="kat-badge">${s.kategorie}</span></span>
+      </div>
+      <div class="card-body">
+        <div class="field-row">
+          <div class="field"><label>Kategorie (popisek)</label><input type="text" id="sl_kat_${i}" value="${e(s.kategorie)}"/></div>
+          <div class="field"><label>Název služby</label><input type="text" id="sl_nazev_${i}" value="${e(s.nazev)}"/></div>
+        </div>
+        <div class="field"><label>Popis</label><textarea id="sl_popis_${i}" rows="2">${e(s.popis)}</textarea></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── Render: Reference grid ── */
+function renderRefGrid() {
+  const grid = document.getElementById('ref-grid');
+  const refs = DATA.reference || [];
+  document.getElementById('ref-count').textContent = refs.length + ' fotek';
+  if (!refs.length) { grid.innerHTML = '<p style="color:#89756e;font-size:13px">Zatím žádné reference.</p>'; return; }
+  grid.innerHTML = refs.map((r, i) => `
+    <div class="ref-item">
+      <img src="../${r.src}" alt="${e(r.nazev)}" onerror="this.style.background='#f0ece6';this.style.minHeight='80px'"/>
+      <div class="ref-item-body">
+        <div class="ref-item-title">${e(r.nazev)}</div>
+        <div class="ref-item-meta">${r.misto} · ${r.rok}</div>
+        <div class="ref-item-actions">
+          <button class="btn btn-secondary btn-sm" onclick="editRef(${i})">Upravit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteRef(${i})">Smazat</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── Render: Hodnocení ── */
+function renderHodnoceni() {
+  const list = document.getElementById('hodnoceni-list');
+  list.innerHTML = (DATA.hodnoceni || []).map((h, i) => `
+    <div class="card">
+      <div class="card-head"><span class="card-head-title">Hodnocení ${i + 1}</span></div>
+      <div class="card-body">
+        <div class="field"><label>Text hodnocení</label><textarea id="hod_text_${i}" rows="3">${e(h.text)}</textarea></div>
+        <div class="field-row">
+          <div class="field"><label>Jméno zákazníka</label><input type="text" id="hod_autor_${i}" value="${e(h.autor)}"/></div>
+          <div class="field"><label>Město</label><input type="text" id="hod_mesto_${i}" value="${e(h.mesto)}"/></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ── Upload reference ── */
+function prepareUpload(file) {
+  if (!file) return;
+  pendingFile = file;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    document.getElementById('preview-img').src = ev.target.result;
+    document.getElementById('upload-preview').style.display = 'block';
+    document.getElementById('new_rok').value = new Date().getFullYear();
+  };
+  reader.readAsDataURL(file);
+}
+
+function cancelUpload() {
+  pendingFile = null;
+  document.getElementById('upload-preview').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+}
+
+async function uploadRef() {
+  if (!pendingFile) return;
+  const nazev = document.getElementById('new_nazev').value.trim();
+  if (!nazev) { toast('Vyplňte název projektu', 'error'); return; }
+
+  const fd = new FormData();
+  fd.append('foto', pendingFile);
+  fd.append('nazev',     nazev);
+  fd.append('misto',     document.getElementById('new_misto').value.trim());
+  fd.append('rok',       document.getElementById('new_rok').value);
+  fd.append('kategorie', document.getElementById('new_kategorie').value);
+  fd.append('popis',     document.getElementById('new_popis').value.trim());
+
+  try {
+    const r = await fetch('upload.php', { method: 'POST', body: fd });
+    const j = await r.json();
+    if (j.ok) {
+      DATA.reference.push(j.item);
+      await saveJSON();
+      renderRefGrid();
+      cancelUpload();
+      toast('Reference přidána');
+    } else {
+      toast(j.error || 'Chyba nahrávání', 'error');
+    }
+  } catch(e) {
+    toast('Nelze kontaktovat server', 'error');
+  }
+}
+
+/* ── Edit reference ── */
+function editRef(i) {
+  editingRefIdx = i;
+  const r = DATA.reference[i];
+  document.getElementById('edit_nazev').value = r.nazev;
+  document.getElementById('edit_misto').value = r.misto;
+  document.getElementById('edit_rok').value   = r.rok;
+  document.getElementById('edit_kategorie').value = r.kategorie;
+  document.getElementById('edit_popis').value = r.popis;
+  document.getElementById('refModal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('refModal').classList.remove('open');
+  editingRefIdx = null;
+}
+
+async function saveRefEdit() {
+  if (editingRefIdx === null) return;
+  const r = DATA.reference[editingRefIdx];
+  r.nazev     = document.getElementById('edit_nazev').value;
+  r.misto     = document.getElementById('edit_misto').value;
+  r.rok       = parseInt(document.getElementById('edit_rok').value);
+  r.kategorie = document.getElementById('edit_kategorie').value;
+  r.popis     = document.getElementById('edit_popis').value;
+  closeModal();
+  await saveJSON();
+  renderRefGrid();
+  toast('Reference upravena');
+}
+
+async function deleteRef(i) {
+  if (!confirm('Smazat referenci „' + DATA.reference[i].nazev + '"?')) return;
+  DATA.reference.splice(i, 1);
+  await saveJSON();
+  renderRefGrid();
+  toast('Reference smazána');
+}
+
+/* ── Drag & drop ── */
+const dz = document.getElementById('dropzone');
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+dz.addEventListener('drop', e => {
+  e.preventDefault(); dz.classList.remove('drag');
+  const f = e.dataTransfer.files[0];
+  if (f) prepareUpload(f);
+});
+
+/* ── Helper: escape HTML ── */
+function e(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+/* ── Init ── */
+loadData();
+</script>
+</body>
+</html>
