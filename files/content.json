@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "title": "Jiří Znamenáček | Mistrovské zednictví Kovanice",
+    "description": "Zednické práce pro rodinné domy s důrazem na kvalitu, stabilitu a estetiku tradičních postupů."
+  },
+  "kontakt": {
+    "jmeno": "Jiří Znamenáček",
+    "telefon": "+420 603 925 721",
+    "email": "znamenacek22@seznam.cz",
+    "oblast": "Působnost po dohodě po celé ČR",
+    "ico": "69531099",
+    "sidlo": "Kovanice, okres Nymburk"
+  },
+  "hero": {
+    "nadpis_radek1": "Stavíme s úctou",
+    "nadpis_radek2": "poctivému",
+    "nadpis_radek3": "řemeslu.",
+    "perex": "Zednické práce pro rodinné domy s důrazem na detail, stabilitu a estetiku tradičního zdiva.",
+    "stat_leta": "20+",
+    "stat_realizace": "100+"
+  },
+  "o_mne": {
+    "nadpis": "Nejsem firma, jsem Jiří Znamenáček",
+    "text1": "U mě jednáte přímo s člověkem, který bude držet lžíci v ruce. Věřím, že dům by měl být postaven tak, aby sloužil po staletí – a moje práce není jen o míchání malty a skládání cihel, je to o vytváření domova.",
+    "text2": "Ke každé zakázce přistupuji osobně. Nečekejte ode mě anonymní partu dělníků. Budu s vámi od prvního návrhu až po položení poslední cihly. Moje jméno je moje značka.",
+    "bullet1": "Osobní dohled na každé zakázce",
+    "bullet2": "Férová cena bez skrytých nákladů",
+    "bullet3": "Dodržování dohodnutých termínů"
+  },
+  "sluzby": [
+    { "id": "01", "kategorie": "Zdění",    "nazev": "Zdění plotů a zdí",       "popis": "Zděné i betonové ploty, opěrné zdi, příčky, nosné zdivo — vše s důrazem na přesnost a trvanlivost." },
+    { "id": "02", "kategorie": "Omítky",   "nazev": "Omítky & Štukování",      "popis": "Vnitřní i venkovní omítky, dekorativní štuky a hladké povrchy připravené pro malbu." },
+    { "id": "03", "kategorie": "Fasády",   "nazev": "Zateplení fasád",          "popis": "Kontaktní zateplovací systémy (ETICS) pro úsporu energií a lepší komfort domu." },
+    { "id": "04", "kategorie": "Interiér", "nazev": "Sádrokartony",             "popis": "Příčky, podhledové stropy, opláštění a veškeré suché výstavbové práce v interiéru." },
+    { "id": "05", "kategorie": "Obklady",  "nazev": "Obklady & Dlažby",        "popis": "Precizní pokládka keramických i kamenných obkladů a dlažeb v koupelnách, kuchyních i exteriérech." },
+    { "id": "06", "kategorie": "Exteriér", "nazev": "Zámková dlažba",          "popis": "Chodníky, příjezdové cesty a zpevněné plochy ze zámkové dlažby s perfektní spádovaností." },
+    { "id": "07", "kategorie": "Střechy",  "nazev": "Rekonstrukce střech",     "popis": "Tradiční pálená taška, betonová krytina, plechové střechy. Opravy i kompletní nové střešní pláště." }
+  ],
+  "hodnoceni": [
+    { "text": "Pan Znamenáček nám dělal omítky v celém domě. Skvělá domluva, práce odvedená v termínu a hlavně – všechno rovné jako když střelí.", "autor": "Marek Svoboda", "mesto": "Hostivice" },
+    { "text": "Hledala jsem někoho na drobné opravy a vyzdění příčky. Profesionální přístup, po práci po sobě uklidil. Rozhodně doporučuji.", "autor": "Jana Nováková", "mesto": "Rudná" },
+    { "text": "Zdění lícových cihel vyžaduje trpělivost a cit. Pan Znamenáček obojí má. Fasáda vypadá úžasně, sousedé se chodí ptát, kdo to dělal.", "autor": "Petr Černý", "mesto": "Roztoky" }
+  ],
+  "reference": [
+    { "id": 1, "src": "img/reference/ref1.jpg", "nazev": "Interiérová cihlová stěna",  "misto": "Praha – Strašnice",  "rok": 2023, "popis": "Pohledové zdivo z lícových cihel jako designový prvek obývacího pokoje. Spárování provedeno bílou fugou.",                          "kategorie": "zdeni" },
+    { "id": 2, "src": "img/reference/ref2.jpg", "nazev": "Štukové omítky – rodinný dům","misto": "Beroun",            "rok": 2023, "popis": "Kompletní vnitřní omítky celého domu. Rovné plochy připravené pro malbu bez dalšího tmelení.",                                    "kategorie": "omitky" },
+    { "id": 3, "src": "img/reference/ref3.jpg", "nazev": "Venkovní terasa – kamenná dlažba","misto": "Kladno",        "rok": 2022, "popis": "Pokládka velkoformátové kamenné dlažby včetně schodů a atiky. Spád odveden do liniového žlabu.",                                  "kategorie": "obklady" },
+    { "id": 4, "src": "img/reference/ref4.jpg", "nazev": "Novostavba – kompletní zdění","misto": "Říčany",            "rok": 2022, "popis": "Hrubá stavba rodinného domu včetně nosného zdiva, příček a fasády. Ytong + lícové cihly na ostění oken.",                          "kategorie": "zdeni" },
+    { "id": 5, "src": "img/reference/ref5.jpg", "nazev": "Krbová stěna z pískovce",    "misto": "Benešov",            "rok": 2023, "popis": "Obklad celé stěny za krbem nepravidelnými bloky přírodního pískovce. Spojení estetiky a tepelné odolnosti.",                       "kategorie": "obklady" },
+    { "id": 6, "src": "img/reference/ref6.jpg", "nazev": "Oplocení – lícové zdivo",    "misto": "Roztoky",            "rok": 2021, "popis": "Plot z lícových cihel Klinker s betonovou římsou a kovanou výplní. Délka 38 metrů.",                                               "kategorie": "zdeni" },
+    { "id": 7, "src": "img/reference/ref7.jpg", "nazev": "Rekonstrukce chalupy",       "misto": "Středočeský kraj",   "rok": 2021, "popis": "Sanace vlhkého zdiva, nové vápenné omítky a obnova původní kamenné soklové části.",                                                "kategorie": "rekonstrukce" },
+    { "id": 8, "src": "img/reference/ref8.jpg", "nazev": "Zděná přizdívka a omítky",  "misto": "Hostivice",          "rok": 2024, "popis": "Přizdění jádrové omítky strojně, finišována ručně. Výsledek je rovný bez viditelných švů.",                                         "kategorie": "omitky" }
+  ]
+}

@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Sprava webu"
+AuthUserFile /var/www/vhosts/VASE-DOMENA.cz/.htpasswd
+Require valid-user

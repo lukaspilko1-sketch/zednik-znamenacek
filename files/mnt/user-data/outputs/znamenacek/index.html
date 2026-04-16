@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="cs">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Jiří Znamenáček | Mistrovské zednictví Kovanice</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700;900&family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary": "#7d5400",
+          "secondary-fixed-dim": "#afcbd8",
+          "secondary-container": "#cbe7f5",
+          "primary-fixed-dim": "#ffb5a0",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#9c4329",
+          "on-primary-fixed-variant": "#7d2c14",
+          "on-tertiary-fixed": "#281800",
+          "surface-container-low": "#f6f3ee",
+          "primary-fixed": "#ffdbd1",
+          "outline": "#89726c",
+          "tertiary-fixed-dim": "#ffba44",
+          "on-surface-variant": "#56423d",
+          "error": "#ba1a1a",
+          "secondary-fixed": "#cbe7f5",
+          "inverse-surface": "#31302d",
+          "on-tertiary-fixed-variant": "#614000",
+          "tertiary-fixed": "#ffddaf",
+          "surface-container-lowest": "#ffffff",
+          "on-surface": "#1c1c19",
+          "inverse-primary": "#ffb5a0",
+          "surface-dim": "#dcdad5",
+          "surface-container": "#f0ede8",
+          "outline-variant": "#dcc1ba",
+          "on-tertiary": "#ffffff",
+          "primary-container": "#b8583d",
+          "inverse-on-surface": "#f3f0eb",
+          "surface-bright": "#fcf9f4",
+          "on-primary": "#ffffff",
+          "on-secondary-fixed": "#021f29",
+          "on-error-container": "#93000a",
+          "on-tertiary-container": "#fffbff",
+          "on-secondary-fixed-variant": "#304a55",
+          "surface": "#fcf9f4",
+          "on-primary-container": "#fffbff",
+          "on-background": "#1c1c19",
+          "on-secondary-container": "#4e6874",
+          "on-error": "#ffffff",
+          "primary": "#994127",
+          "on-primary-fixed": "#3b0900",
+          "surface-container-highest": "#e5e2dd",
+          "error-container": "#ffdad6",
+          "surface-container-high": "#ebe8e3",
+          "background": "#fcf9f4",
+          "secondary": "#48626e",
+          "tertiary-container": "#9d6b00",
+          "surface-variant": "#e5e2dd"
+        },
+        fontFamily: {
+          "headline": ["Noto Serif", "serif"],
+          "body": ["Manrope", "sans-serif"],
+          "label": ["Manrope", "sans-serif"]
+        },
+        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background-color: #fcf9f4;
+  }
+  h1, h2, h3, .brand-font {
+    font-family: 'Noto Serif', serif;
+    letter-spacing: -0.025em;
+  }
+
+  /* ── Eyebrow labels ── */
+  .eyebrow {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #994127;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  /* ── CTA buttons ── */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: background-color 0.22s, box-shadow 0.22s, transform 0.15s;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 10px 32px rgba(153,65,39,0.38);
+    transform: translateY(-2px);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: background-color 0.22s, box-shadow 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover {
+    box-shadow: 0 4px 16px rgba(72,98,110,0.2);
+    transform: translateY(-2px);
+  }
+
+  /* ── Nav link underline slide ── */
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 2px;
+    background: #994127;
+    transition: width 0.22s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  /* ── Service cards ── */
+  .service-card {
+    transition: transform 0.28s cubic-bezier(.22,.68,0,1.2), box-shadow 0.28s, border-color 0.2s;
+    border: 2px solid transparent;
+  }
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 48px rgba(153,65,39,0.14);
+    border-color: rgba(153,65,39,0.2);
+  }
+  .service-card-dark:hover {
+    box-shadow: 0 20px 48px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.1);
+  }
+  .service-card h3 {
+    font-family: 'Noto Serif', serif;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── Gallery cards ── */
+  .gallery-card {
+    transition: transform 0.28s cubic-bezier(.22,.68,0,1.2), box-shadow 0.28s;
+  }
+  .gallery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.22);
+  }
+
+  /* ── Testimonial cards ── */
+  .testimonial-card {
+    transition: transform 0.25s ease, background-color 0.25s;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    background-color: rgba(255,255,255,0.18) !important;
+  }
+
+  /* ── About bullets ── */
+  .about-bullet {
+    transition: transform 0.2s ease;
+  }
+  .about-bullet:hover { transform: translateX(4px); }
+  .about-bullet:hover .about-icon {
+    box-shadow: 0 4px 14px rgba(153,65,39,0.25);
+  }
+  .about-icon { transition: box-shadow 0.2s; }
+
+  /* ── Form inputs ── */
+  .form-input {
+    font-family: 'Manrope', sans-serif;
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+  .form-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(153,65,39,0.2);
+    background-color: #fff;
+  }
+
+  /* ══ SWISS INTERNATIONAL STYLE ══════════════════════════ */
+
+  /* Ostré rohy — odstraníme zaoblení z klíčových prvků */
+  .service-card,
+  .gallery-card,
+  .testimonial-card,
+  .swiss-quote,
+  #contact-form input,
+  #contact-form textarea,
+  #contact-form button { border-radius: 0 !important; }
+
+  /* ── Swiss sekce: tenká horní linka ── */
+  .swiss-section {
+    border-top: 1px solid #d6cfc6;
+  }
+  .swiss-section-dark {
+    border-top: 2px solid rgba(255,255,255,.12);
+  }
+
+  /* ── Service cards: Swiss grid border ── */
+  .service-card {
+    border: 1.5px solid #e5ddd5 !important;
+    transition: border-color .22s, transform .28s cubic-bezier(.22,.68,0,1.2), box-shadow .28s;
+    background: #fff !important;
+  }
+  .service-card:hover {
+    border-color: #9c4329 !important;
+    transform: translateY(-3px);
+    box-shadow: 4px 8px 0 0 #9c4329 !important;
+  }
+  .service-card-accent {
+    background: #9c4329 !important;
+    border-color: #9c4329 !important;
+  }
+  .service-card-accent:hover {
+    box-shadow: 4px 8px 0 0 #7d2c14 !important;
+    border-color: #7d2c14 !important;
+  }
+  .service-card-dark-bg {
+    background: #1c1410 !important;
+    border-color: #1c1410 !important;
+  }
+  .service-card-dark-bg:hover {
+    border-color: #9c4329 !important;
+    box-shadow: 4px 8px 0 0 #9c4329 !important;
+  }
+  .service-card-mid {
+    background: #f0ece5 !important;
+    border-color: #e0d8d0 !important;
+  }
+  .service-card-mid:hover {
+    border-color: #9c4329 !important;
+    box-shadow: 4px 8px 0 0 #9c4329 !important;
+  }
+
+  /* ── Swiss čísla na servisních kartách ── */
+  .swiss-card-num {
+    font-family: 'Noto Serif', serif;
+    font-size: 3.5rem; font-weight: 900;
+    line-height: 1; letter-spacing: -.04em;
+    color: #e5ddd5;
+    position: absolute; top: 1rem; right: 1.2rem;
+    pointer-events: none; user-select: none;
+    transition: color .22s;
+  }
+  .service-card:hover .swiss-card-num { color: rgba(156,67,41,.15); }
+
+  /* ── Gallery cards: Swiss ── */
+  .gallery-card {
+    transition: transform .28s cubic-bezier(.22,.68,0,1.2), box-shadow .28s;
+  }
+  .gallery-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 5px 10px 0 0 #9c4329;
+  }
+
+  /* ── Swiss testimonials ── */
+  .swiss-quote {
+    background: rgba(255,255,255,.06) !important;
+    border-left: 3px solid #c9a87c !important;
+    border-top: 0 !important;
+  }
+  .swiss-quote:hover {
+    background: rgba(255,255,255,.1) !important;
+  }
+
+  /* ── About bullets: Swiss ── */
+  .about-bullet {
+    transition: transform 0.2s ease;
+  }
+  .about-bullet:hover { transform: translateX(5px); }
+  .about-bullet:hover .about-icon {
+    box-shadow: 3px 3px 0 0 rgba(153,65,39,0.3);
+  }
+  .about-icon {
+    transition: box-shadow 0.2s;
+    border-radius: 0 !important;
+  }
+
+  /* ── Swiss eyebrow ── */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .6rem;
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 2px;
+    background: #9c4329;
+    flex-shrink: 0;
+  }
+
+  /* ── Swiss hero border accent ── */
+  .hero-swiss-border {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: #9c4329;
+  }
+
+  /* ── Decorative rule ── */
+  .section-rule {
+    width: 48px; height: 3px;
+    background: #994127;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── Hero concrete texture ── */
+  .hero-texture::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #form-success, #form-error { display: none; }
+</style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+
+<!-- ══ NAV ══ -->
+<header class="fixed top-0 w-full z-50 bg-[#fcf9f4]/90 backdrop-blur-md border-b border-stone-200/60">
+<nav class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+  <div class="leading-tight">
+    <div class="text-xl font-serif font-black text-[#7d2c14] tracking-tight">Jiří Znamenáček</div>
+    <div class="text-[9px] uppercase tracking-[0.22em] text-stone-400 font-bold">Zednictví · Kovanice</div>
+  </div>
+  <div class="hidden md:flex gap-8 items-center">
+    <a class="nav-link text-stone-500 font-semibold text-sm hover:text-[#7d2c14] transition-colors" href="#sluzby">Služby</a>
+    <a class="nav-link text-stone-500 font-semibold text-sm hover:text-[#7d2c14] transition-colors" href="#o-mne">O mně</a>
+    <a class="nav-link text-stone-500 font-semibold text-sm hover:text-[#7d2c14] transition-colors" href="reference.html">Reference</a>
+    <a class="nav-link text-stone-500 font-semibold text-sm hover:text-[#7d2c14] transition-colors" href="#kontakt">Kontakt</a>
+    <a class="btn-primary ml-6 px-6 py-2.5 bg-[#9c4329] text-white rounded-sm shadow-sm hover:bg-[#7d2c14]" href="#kontakt">
+      Poptat práci
+      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+    </a>
+  </div>
+  <button class="md:hidden p-2">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+</nav>
+</header>
+
+<main class="pt-20">
+
+<!-- ══ HERO ══ -->
+<section class="relative bg-[#f0ece5] overflow-hidden hero-texture">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch min-h-[600px]">
+  <div class="w-full md:w-[55%] px-10 py-20 md:px-20 md:py-28 flex flex-col justify-center relative z-10">
+    <h1 class="font-serif font-black text-[#1c1611] leading-[1.05] mb-8" style="font-size: clamp(2.6rem, 6vw, 5rem);">
+      <span id="hero-r1">Stavíme s úctou</span><br/>k&nbsp;<em class="text-[#9c4329] not-italic" id="hero-r2r3">poctivému<br/>řemeslu.</em>
+    </h1>
+    <p class="text-[#56423d] max-w-md mb-10 leading-[1.8] text-[1.05rem]" id="hero-perex">
+      Zednické práce pro rodinné domy s důrazem na detail, stabilitu a estetiku tradičního zdiva.
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href="reference.html" class="btn-primary px-8 py-4 bg-[#9c4329] text-white rounded-sm shadow-lg hover:bg-[#7d2c14]">
+        Naše realizace
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </a>
+      <a href="#kontakt" class="btn-secondary px-8 py-4 bg-transparent text-[#56423d] rounded-sm border-2 border-[#c9a87c] hover:border-[#9c4329] hover:text-[#9c4329]">
+        Nezávazná poptávka
+      </a>
+    </div>
+    <!-- mini stats -->
+    <div class="flex gap-10 mt-14 pt-10 border-t border-[#c9a87c]/40">
+      <div>
+        <div class="font-serif font-black text-[#9c4329] text-3xl leading-none" id="hero-stat-leta">20+</div>
+        <div class="text-[0.68rem] uppercase tracking-[0.15em] text-stone-400 font-bold mt-1">Let praxe</div>
+      </div>
+      <div>
+        <div class="font-serif font-black text-[#9c4329] text-3xl leading-none" id="hero-stat-realizace">100+</div>
+        <div class="text-[0.68rem] uppercase tracking-[0.15em] text-stone-400 font-bold mt-1">Realizací</div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-[45%] relative min-h-[360px]">
+    <img class="absolute inset-0 w-full h-full object-cover" alt="Zděná fasáda rodinného domu" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi0rMa4gyu9ymPFp_9_lHAueZZAMQsxhIkfOnZgoGXyoWdl-cpCIME3RqpgbkZitvQtpPtOvZIZ29OHnLDLKNfczE4le8L9u-HzMo8WhxWMqwTkeppMYHtxFxUNJzqgPHDnKBksyqLf0PtWD3CWH-w7Qn02WIvhR1yYG42s5OfM5BktmW2HrZ-Up_xoYZhjMy3JwnbY-FvX9sDEiVFrFJWQt45AXh1qCypWqP-iN-ldqn0jAV_lXUF6VRxhrvKZmfpTExJijhkKw"/>
+    <div class="absolute inset-0 bg-[#9c4329]/10 mix-blend-multiply"></div>
+  </div>
+</div>
+</section>
+
+<!-- ══ SLUŽBY ══ -->
+<section class="py-28 px-6 max-w-7xl mx-auto" id="sluzby">
+<div class="mb-20 text-center max-w-2xl mx-auto">
+  <span class="eyebrow">Co umím</span>
+  <h2 class="font-serif font-black text-[#1c1611] mb-5" style="font-size: clamp(2rem, 4.5vw, 3.5rem);">Naše specializace</h2>
+  <p class="text-[#56423d] text-base leading-relaxed">Od základů po střechu. Každý projekt je příležitostí vytvořit trvalé hodnoty.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-px bg-[#d6cfc6]">
+
+  <!-- 01 Zdění -->
+  <div class="service-card service-card-mid md:col-span-8 p-8 relative overflow-hidden group min-h-[220px] flex flex-col justify-between">
+    <span class="swiss-card-num">01</span>
+    <div class="text-[0.62rem] font-bold uppercase tracking-[.18em] text-[#9c4329] mb-4">Zdění</div>
+    <div>
+      <h3 class="text-2xl font-bold mb-3 text-[#1c1611]">Zdění plotů a zdí</h3>
+      <p class="text-[#56423d] max-w-sm leading-relaxed">Zděné i betonové ploty, opěrné zdi, příčky, nosné zdivo — vše s důrazem na přesnost a trvanlivost.</p>
+    </div>
+    <img class="absolute top-0 right-0 w-2/5 h-full object-cover opacity-10 group-hover:opacity-25 transition-opacity duration-500 grayscale" alt="" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7iaWYVflAc9Qi0djxZ-7W-EJXUZxOTPPoJl5ZX1Ffa-3s1NK77c5KBjfFIdyviTfZTtBenwYiHqiVfqX_ouY4WzndsllSnZ-rUxapndn0Ol9ebNMPUyvHe6o4W7HOQDzqJJezFEgCQtZSe08Ism9g6UNAEKvuf5lklDZq24YkFvNVBEcZOhOpOB7s5xjqs5c39t8RNgcnhK8aFk57rYhf_HqWLEZIy9hTPTWo3y8Km2ZbMdYgrMD-I0PLBlisacKXF1C1cBLkYA"/>
+  </div>
+
+  <!-- 02 Omítky -->
+  <div class="service-card service-card-accent md:col-span-4 p-8 relative min-h-[220px] flex flex-col justify-between">
+    <span class="swiss-card-num" style="color: rgba(255,255,255,.12);">02</span>
+    <div class="text-[0.62rem] font-bold uppercase tracking-[.18em] text-[#c9a87c] mb-4">Omítky</div>
+    <div>
+      <h3 class="text-2xl font-bold mb-3 text-white">Omítky &amp; Štukování</h3>
+      <p class="text-white/75 leading-relaxed">Vnitřní i venkovní omítky, dekorativní štuky a hladké povrchy připravené pro malbu.</p>
+    </div>
+  </div>
+
+  <!-- 03 Zateplení -->
+  <div class="service-card md:col-span-4 p-8 relative min-h-[200px] flex flex-col justify-between">
+    <span class="swiss-card-num">03</span>
+    <div class="text-[0.62rem] font-bold uppercase tracking-[.18em] text-[#9c4329] mb-4">Fasády</div>
+    <div>
+      <h3 class="text-2xl font-bold mb-3 text-[#1c1611]">Zateplení fasád</h3>
+      <p class="text-[#56423d] leading-relaxed">Kontaktní zateplovací systémy (ETICS) pro úsporu energií a lepší komfort domu.</p>
+    </div>
+  </div>
+
+  <!-- 04 Sádrokartony -->
+  <div class="service-card md:col-span-4 p-8 relative min-h-[200px] flex flex-col justify-between">
+    <span class="swiss-card-num">04</span>
+    <div class="text-[0.62rem] font-bold uppercase tracking-[.18em] text-[#9c4329] mb-4">Interiér</div>
+    <div>
+      <h3 class="text-2xl font-bold mb-3 text-[#1c1611]">Sádrokartony</h3>
+      <p class="text-[#56423d] leading-relaxed">Příčky, podhledové stropy, opláštění a veškeré suché výstavbové práce v interiéru.</p>
+    </div>
+  </div>
+
+  <!-- 05 Obklady -->
+  <div class="service-card md:col-span-4 p-8 relative min-h-[200px] flex flex-col justify-between">
+    <span class="swiss-card-num">05</span>
+    <div class="text-[0.62rem] font-bold uppercase tracking-[.18em] text-[#9c4329] mb-4">Obklady</div>
+    <div>
+      <h3 class="text-2xl font-bold mb-3 text-[#1c1611]">Obklady &amp; Dlažby</h3>
+      <p class="text-[#56423d] leading-relaxed">Precizní pokládka keramických i kamenných obkladů a dlažeb v koupelnách, kuchyních i exteriérech.</p>
+    </div>
+  </div>
+
+  <!-- 06 Zámková dlažba -->
+  <div class="service-card service-card-mid md:col-span-4 p-8 relative min-h-[200px] flex flex-col justify-between">
+    <span class="swiss-card-num">06</span>
+    <div class="text-[0.62rem] font-bold uppercase tracking-[.18em] text-[#9c4329] mb-4">Exteriér</div>
+    <div>
+      <h3 class="text-2xl font-bold mb-3 text-[#1c1611]">Zámková dlažba</h3>
+      <p class="text-[#56423d] leading-relaxed">Chodníky, příjezdové cesty a zpevněné plochy ze zámkové dlažby s perfektní spádovaností.</p>
+    </div>
+  </div>
+
+  <!-- 07 Střechy -->
+  <div class="service-card service-card-mid md:col-span-8 p-8 relative min-h-[200px] flex flex-col justify-between">
+    <span class="swiss-card-num">07</span>
+    <div class="text-[0.62rem] font-bold uppercase tracking-[.18em] text-[#9c4329] mb-4">Střechy</div>
+    <div>
+      <h3 class="text-2xl font-bold mb-3 text-[#1c1611]">Rekonstrukce střech</h3>
+      <p class="text-[#56423d] leading-relaxed">Tradiční pálená taška, betonová krytina, plechové střechy. Opravy i kompletní nové střešní pláště.</p>
+    </div>
+  </div>
+
+  <!-- Banner: koordinace -->
+  <div class="service-card service-card-dark-bg md:col-span-12 p-8 flex flex-col md:flex-row items-center gap-6">
+    <div class="flex-1">
+      <div class="text-[0.62rem] font-bold uppercase tracking-[.18em] text-[#c9a87c] mb-3">Kompletní servis</div>
+      <h3 class="text-2xl font-bold mb-2 text-white">Zajistím i další práce</h3>
+      <p class="text-white/60 leading-relaxed">Potřebujete elektrikáře, instalatéra nebo topenáře? Mám osvědčené partnery a celou koordinaci zajistím za vás — vy řešíte jen výsledek.</p>
+    </div>
+    <a href="#kontakt" class="btn-primary flex-none px-7 py-4 bg-[#9c4329] text-white hover:bg-[#7d2c14] whitespace-nowrap">
+      Poptat práci
+      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+    </a>
+  </div>
+
+</div>
+</section>
+
+<!-- ══ O MNĚ ══ -->
+<section class="bg-[#f0ece5] py-28 overflow-hidden" id="o-mne">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+  <div class="relative">
+    <div class="aspect-[3/4] rounded-xl overflow-hidden shadow-2xl relative z-10">
+      <img class="w-full h-full object-cover" alt="Portrét Jiřího Znamenáčka" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFbhQ_49rR7Vp_rvU-QgaG6KVV4wlh9S_rPngj7vjwTJ_fVrvnk85ya84s0lD-OKfuWO3vtdiVBiG27ubmkrTDHHF4w4IjnDQS82oCNf_RMEU7Ukg0VoDdxGwrAnpMOL8WiC_3wPuybNbyRVLb0AxGmv08zHmwpOmc6dMGxp4lsE8eS1DCOg8o57w1qkoI9IAkGWe3hZV3YFd-y-iqXkvBjkOr0w1wNK7RuMjwDCEvZbzvcMDtZNmY0Z5L5bfNfcYBdgA9ZTX60Q"/>
+    </div>
+    <div class="absolute -top-10 -left-10 w-48 h-48 bg-primary rounded-xl -z-0 opacity-10"></div>
+    <div class="absolute -bottom-10 -right-10 w-72 h-72 border-8 border-secondary-container rounded-xl -z-0"></div>
+  </div>
+  <div>
+    <span class="eyebrow">O mně</span>
+    <h2 class="font-serif font-black text-[#1c1611] mb-8 leading-tight" style="font-size: clamp(2rem, 4vw, 3rem);">Nejsem firma,<br/><em class="text-[#9c4329] not-italic">jsem Jiří Znamenáček</em></h2>
+    <div class="space-y-6 text-[#56423d] leading-[1.85] text-[0.97rem]">
+      <p>U mě jednáte přímo s člověkem, který bude držet lžíci v ruce. Věřím, že dům by měl být postaven tak, aby sloužil po staletí – a moje práce není jen o míchání malty a skládání cihel, je to o vytváření domova.</p>
+      <p>Ke každé zakázce přistupuji osobně. Nečekejte ode mě anonymní partu dělníků. Budu s vámi od prvního návrhu až po položení poslední cihly. Moje jméno je moje značka.</p>
+      <div class="flex flex-col gap-4 pt-4">
+        <div class="about-bullet flex items-center gap-4">
+          <span class="about-icon w-10 h-10 bg-white flex items-center justify-center text-[#9c4329] shadow-sm border border-[#e5ddd5]">
+            <span class="material-symbols-outlined">verified</span>
+          </span>
+          <span class="font-bold text-on-surface">Osobní dohled na každé zakázce</span>
+        </div>
+        <div class="about-bullet flex items-center gap-4">
+          <span class="about-icon w-10 h-10 bg-white flex items-center justify-center text-[#9c4329] shadow-sm border border-[#e5ddd5]">
+            <span class="material-symbols-outlined">handshake</span>
+          </span>
+          <span class="font-bold text-on-surface">Férová cena bez skrytých nákladů</span>
+        </div>
+        <div class="about-bullet flex items-center gap-4">
+          <span class="about-icon w-10 h-10 bg-white flex items-center justify-center text-[#9c4329] shadow-sm border border-[#e5ddd5]">
+            <span class="material-symbols-outlined">schedule</span>
+          </span>
+          <span class="font-bold text-on-surface">Dodržování dohodnutých termínů</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ VYBRANÉ PROJEKTY ══ -->
+<section class="py-28 px-6 max-w-7xl mx-auto" id="reference">
+<div class="mb-14">
+  <span class="eyebrow">Portfolio</span>
+  <h2 class="font-serif font-black text-[#1c1611]" style="font-size: clamp(2rem, 4.5vw, 3.5rem);">Vybrané projekty</h2>
+  <p class="text-[#56423d] mt-3 text-base">Nahlédněte do výsledků naší každodenní práce.</p>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="ref-preview-grid">
+  <div class="gallery-card relative group overflow-hidden">
+    <img class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500" alt="Novostavba Říčany — kompletní zdění a fasáda" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbxpqWilKO4FWn72dqlD6rkRY_go31qW-pR9nVcEOh36G4GkrtwpUuHnqGLcr6BxlQkg_V6nSj5e4YOYgg4pRlPAmf_8NtH_cKNvARK70Q43rAAve2a2A7vgkGwCfCl4-rv9j_nID6jtDMyoCRVu5n1WTLTj94g2N21LYzz9hJTF1sjgP-WPCYTuWHqJ9h0qdmYXv776AXpevchSkaxFxvq1MqaRt5H9J5RnQC6CrTzHLi_NonBCjqhZ9bKyaUi5kAJmzu7m7YlA"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end text-white">
+      <h4 class="font-bold text-lg">Novostavba Říčany</h4>
+      <p class="text-sm opacity-80">Kompletní zdění a fasáda</p>
+    </div>
+  </div>
+
+  <div class="gallery-card relative group overflow-hidden">
+    <img class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500" alt="Krbová stěna z přírodního pískovce" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTH1uVdWlRfd0i9T1yTwinT7J6np5-JFp3azoaegMqWd0qUjZZes9gYZx2GfANH61EoG5L17Kpkxl8Jy2-V1FU9FpSlovYriSwutO6-QgUFRbBla-3FAdCISixwC_jcqBsYlm1tTYwvlLK4TBnsfdn16BuyBS3R_ZE3fPfSuDBDO7Aw1RH4w6TuDn0cHZUnrM516ePwskDJWHB3SPJk8AX1DHB_0R1YPw_EHvEhfJdiYvv3lHuuwyg20-Lb8hDnoYA7CrJUljWZw"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end text-white">
+      <h4 class="font-bold text-lg">Krbová stěna</h4>
+      <p class="text-sm opacity-80">Přírodní pískovec</p>
+    </div>
+  </div>
+
+  <div class="gallery-card relative group overflow-hidden">
+    <img class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500" alt="Oplocení pozemku — lícové zdivo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPorlnk2RWFXgJFw1icZOQfk2IVwNzAD_abio27NR6iMJcGVSyCtKxWn9Q5fALi_eQ3zvGBnUiYcwUHRc638PgIbbnOiqiqyhhnn_JyHJ1j0277xFbi2PrJ06_NN_VkEkcM54BWF027elrCFwXPk7RkeoX2WtwoqcZIS-LK4pWbi03TSfDyA4l8xiWivWNVSyjLSAo45bWOZx_6ycd7KO-_ujnDsk0Uo7mLr_bXRckqt0KpjIcn6YBP5dMWvOCyaxsUqB0ODC21Q"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end text-white">
+      <h4 class="font-bold text-lg">Oplocení pozemku</h4>
+      <p class="text-sm opacity-80">Lícové zdivo</p>
+    </div>
+  </div>
+
+  <div class="gallery-card relative group overflow-hidden">
+    <img class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500" alt="Rekonstrukce chalupy — omítky a sanace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxfa2M-pxpZifvdNBBDaOf0SfK0k4O4Yvd2k5VBSayv3vmzp27qUGV5EmQV6Bn25etH4tMHghvy6odMSGYK54Z56sIQPDFaHd1j5VSL3FOj-weU1jnWcCcgtOVEhyg4p7HNnu5XcxPUKTc5PqvAGBNOBxOQYj6pnd27dzdK899Sre-A-luPNzhw8okbiP16g018DF4sHdEMD7vQrK1AjAMFQTTzGjt4jcqnikRb4ohpK2KgY0Xttly3jysxTvILGuhMNMpUP6ebg"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end text-white">
+      <h4 class="font-bold text-lg">Rekonstrukce chalupy</h4>
+      <p class="text-sm opacity-80">Omítky a sanace</p>
+    </div>
+  </div>
+</div>
+
+<div class="mt-14 text-center">
+  <a href="reference.html" class="btn-primary inline-flex items-center gap-3 px-10 py-5 bg-[#9c4329] text-white rounded-sm font-bold shadow-xl hover:bg-[#7d2c14]">
+    Všechny realizace
+    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+  </a>
+</div>
+</section>
+
+<!-- ══ HODNOCENÍ ══ -->
+<section class="bg-[#9c4329] py-28 text-white overflow-hidden relative">
+<div class="absolute top-0 right-0 opacity-[0.07] pointer-events-none select-none">
+  <span class="material-symbols-outlined text-[28rem]" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+</div>
+<div class="max-w-7xl mx-auto px-6 relative z-10">
+  <div class="text-center mb-20">
+    <span class="eyebrow" style="color: #c9a87c;">Spokojení klienti</span>
+    <h2 class="font-serif font-black text-white mb-4" style="font-size: clamp(2rem, 4.5vw, 3rem);">Co říkají klienti</h2>
+    <p class="text-white/70 max-w-xl mx-auto text-base leading-relaxed">Zpětná vazba od lidí, pro které jsem stavěl, opravoval nebo omítal.</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-6">
+
+    <div class="testimonial-card swiss-quote p-8 border-t-2 border-[#c9a87c]/60">
+      <div class="text-[4rem] font-serif leading-none text-[#c9a87c]/40 select-none mb-2">"</div>
+      <p class="font-serif italic text-lg leading-relaxed mb-8 text-white/90">Pan Znamenáček nám dělal omítky v celém domě. Skvělá domluva, práce odvedená v termínu a hlavně – všechno rovné jako když střelí.</p>
+      <div class="flex items-center gap-4 pt-5 border-t border-white/10">
+        <div class="w-8 h-8 bg-[#c9a87c]/30 flex items-center justify-center flex-shrink-0 text-[#c9a87c] font-black font-serif text-sm">M</div>
+        <div>
+          <div class="font-bold text-sm tracking-wide">Marek Svoboda</div>
+          <div class="text-xs text-white/50 uppercase tracking-[0.12em]">Hostivice</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card swiss-quote p-8 border-t-2 border-[#c9a87c]/60">
+      <div class="text-[4rem] font-serif leading-none text-[#c9a87c]/40 select-none mb-2">"</div>
+      <p class="font-serif italic text-lg leading-relaxed mb-8 text-white/90">Hledala jsem někoho na drobné opravy a vyzdění příčky. Profesionální přístup, po práci po sobě uklidil. Rozhodně doporučuji.</p>
+      <div class="flex items-center gap-4 pt-5 border-t border-white/10">
+        <div class="w-8 h-8 bg-[#c9a87c]/30 flex items-center justify-center flex-shrink-0 text-[#c9a87c] font-black font-serif text-sm">J</div>
+        <div>
+          <div class="font-bold text-sm tracking-wide">Jana Nováková</div>
+          <div class="text-xs text-white/50 uppercase tracking-[0.12em]">Rudná</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card swiss-quote p-8 border-t-2 border-[#c9a87c]/60">
+      <div class="text-[4rem] font-serif leading-none text-[#c9a87c]/40 select-none mb-2">"</div>
+      <p class="font-serif italic text-lg leading-relaxed mb-8 text-white/90">Zdění lícových cihel vyžaduje trpělivost a cit. Pan Znamenáček obojí má. Fasáda vypadá úžasně, sousedé se chodí ptát, kdo to dělal.</p>
+      <div class="flex items-center gap-4 pt-5 border-t border-white/10">
+        <div class="w-8 h-8 bg-[#c9a87c]/30 flex items-center justify-center flex-shrink-0 text-[#c9a87c] font-black font-serif text-sm">P</div>
+        <div>
+          <div class="font-bold text-sm tracking-wide">Petr Černý</div>
+          <div class="text-xs text-white/50 uppercase tracking-[0.12em]">Roztoky</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══ KONTAKT ══ -->
+<section class="py-28 px-6 max-w-7xl mx-auto" id="kontakt">
+<div class="bg-white rounded-sm shadow-2xl overflow-hidden flex flex-col lg:flex-row">
+
+  <div class="lg:w-2/5 bg-[#3a2c26] p-12 text-white">
+    <span class="eyebrow" style="color: #c9a87c;">Kontakt</span>
+    <h2 class="font-serif font-black text-white mb-6" style="font-size: clamp(1.8rem, 3vw, 2.5rem);">Spojme se</h2>
+    <p class="mb-12 text-white/70 leading-[1.8] text-[0.95rem]">Máte projekt, o kterém byste si chtěli promluvit? Ozvěte se mi a domluvíme si nezávaznou schůzku přímo na místě.</p>
+    <div class="space-y-6">
+      <div class="flex gap-4">
+        <span class="material-symbols-outlined text-primary-fixed">call</span>
+        <div>
+          <div class="font-bold">Telefon</div>
+          <div class="opacity-80"><a href="tel:+420603925721" class="hover:underline">+420 603 925 721</a></div>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <span class="material-symbols-outlined text-primary-fixed">mail</span>
+        <div>
+          <div class="font-bold">Email</div>
+          <div class="opacity-80"><a href="mailto:znamenacek22@seznam.cz" class="hover:underline">znamenacek22@seznam.cz</a></div>
+        </div>
+      </div>
+      <div class="flex gap-4">
+        <span class="material-symbols-outlined text-primary-fixed">location_on</span>
+        <div>
+          <div class="font-bold">Kde působím</div>
+          <div class="opacity-80" data-kontakt="oblast">Působnost po dohodě po celé ČR</div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 rounded-lg overflow-hidden shadow-inner border border-white/10">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5243.8!2d15.1183!3d50.1817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470bed6b5b5b5b5b%3A0x400af0f6614be40!2sKovanice%2C+288+02%2C+okres+Nymburk!5e0!3m2!1scs!2scz!4v1704067200"
+        width="100%" height="180" style="border:0;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="mt-8 pt-8 border-t border-white/10 text-sm opacity-60">
+      Jiří Znamenáček<br/>
+      IČO: 69531099<br/>
+      Nejsem plátce DPH.
+    </div>
+  </div>
+
+  <div class="lg:w-3/5 p-12">
+    <span class="eyebrow">Formulář</span>
+    <h3 class="font-serif font-black text-[#1c1611] text-2xl mb-3">Nezávazná poptávka</h3>
+    <p class="text-[#56423d] text-sm mb-8 leading-relaxed">
+      Vyplňte formulář a poptávka přijde přímo na můj e-mail. Ozvu se zpravidla do 24 hodin.
+    </p>
+
+    <!--
+      FORMSPREE NASTAVENÍ:
+      1. Zaregistrujte se zdarma na https://formspree.io
+      2. Vytvořte nový formulář a zkopírujte váš endpoint URL
+      3. Nahraďte "https://formspree.io/f/XXXXXXXX" níže vaším skutečným endpointem
+         (vypadá takto: https://formspree.io/f/abcd1234)
+    -->
+    <form id="contact-form" action="https://formspree.io/f/XXXXXXXX" method="POST" class="space-y-6">
+      <input type="text" name="_gotcha" style="display:none"/>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="space-y-2">
+          <label class="text-sm font-bold text-on-surface-variant ml-1" for="name">Jméno a příjmení</label>
+          <input id="name" name="name" required
+            class="form-input w-full px-4 py-3 bg-surface-container-highest border-none rounded-lg"
+            placeholder="Petr Horák" type="text"/>
+        </div>
+        <div class="space-y-2">
+          <label class="text-sm font-bold text-on-surface-variant ml-1" for="phone">Telefon</label>
+          <input id="phone" name="phone"
+            class="form-input w-full px-4 py-3 bg-surface-container-highest border-none rounded-lg"
+            placeholder="+420 ..." type="tel"/>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <label class="text-sm font-bold text-on-surface-variant ml-1" for="email">E-mail</label>
+        <input id="email" name="email" required
+          class="form-input w-full px-4 py-3 bg-surface-container-highest border-none rounded-lg"
+          placeholder="petr@email.cz" type="email"/>
+      </div>
+
+      <div class="space-y-2">
+        <label class="text-sm font-bold text-on-surface-variant ml-1" for="message">Vaše zpráva</label>
+        <textarea id="message" name="message" required rows="4"
+          class="form-input w-full px-4 py-3 bg-surface-container-highest border-none rounded-lg"
+          placeholder="Popište stručně váš záměr — co, kde, přibližný rozsah..."></textarea>
+      </div>
+
+      <button type="submit" id="submit-btn"
+        class="btn-primary w-full py-4 bg-[#9c4329] text-white rounded-sm font-bold text-sm shadow-lg hover:bg-[#7d2c14] justify-center">
+        Odeslat nezávaznou poptávku
+        <span class="material-symbols-outlined text-[18px]">send</span>
+      </button>
+
+      <p id="form-success" class="text-green-700 bg-green-50 border border-green-200 rounded-lg px-4 py-3 text-sm font-medium">
+        ✓ Poptávka odeslána! Ozvu se vám co nejdříve.
+      </p>
+      <p id="form-error" class="text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm font-medium">
+        Něco se nepovedlo. Zkuste prosím znovu nebo volejte přímo na +420 603 925 721.
+      </p>
+    </form>
+  </div>
+
+</div>
+</section>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="bg-[#1c1410] border-t border-white/5">
+<div class="max-w-7xl mx-auto px-8">
+
+  <!-- Horní řada: brand vlevo, nav vpravo -->
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-10 py-14 border-b border-white/8">
+    <div>
+      <div class="font-serif font-black text-white text-2xl tracking-tight mb-1">Jiří Znamenáček</div>
+      <p class="text-white/35 text-sm leading-relaxed max-w-sm">Zednické práce pro rodinné domy s důrazem na kvalitu, stabilitu a estetiku tradičních postupů. Kovanice, okres Nymburk.</p>
+    </div>
+    <nav class="flex flex-wrap gap-x-8 gap-y-2">
+      <a class="text-white/50 hover:text-[#c9a87c] text-sm font-semibold transition-colors" href="#sluzby">Služby</a>
+      <a class="text-white/50 hover:text-[#c9a87c] text-sm font-semibold transition-colors" href="#o-mne">O mně</a>
+      <a class="text-white/50 hover:text-[#c9a87c] text-sm font-semibold transition-colors" href="reference.html">Reference</a>
+      <a class="text-white/50 hover:text-[#c9a87c] text-sm font-semibold transition-colors" href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+
+  <!-- Dolní řada: kontakt vlevo, copyright vpravo -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 py-6">
+    <div class="flex flex-wrap gap-x-6 gap-y-1 items-center">
+      <a href="tel:+420603925721" class="text-[#c9a87c] hover:text-white font-bold text-sm transition-colors">+420 603 925 721</a>
+      <span class="text-white/15 hidden md:inline">|</span>
+      <a href="mailto:znamenacek22@seznam.cz" class="text-white/40 hover:text-white text-xs transition-colors">znamenacek22@seznam.cz</a>
+    </div>
+    <div class="text-white/20 text-xs">© 2025 Jiří Znamenáček · IČO: 69531099 · Nejsem plátce DPH.</div>
+  </div>
+
+</div>
+</footer>
+
+<script>
+  // Formspree AJAX — success/error bez přesměrování
+  const form = document.getElementById('contact-form');
+  const btn = document.getElementById('submit-btn');
+  const successMsg = document.getElementById('form-success');
+  const errorMsg = document.getElementById('form-error');
+
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const originalText = btn.textContent;
+      btn.textContent = 'Odesílám…';
+      btn.disabled = true;
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      try {
+        const resp = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (resp.ok) {
+          form.reset();
+          successMsg.style.display = 'block';
+          btn.textContent = 'Odesláno ✓';
+        } else {
+          throw new Error('error');
+        }
+      } catch {
+        errorMsg.style.display = 'block';
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
+
+<script>
+// ── Načítání obsahu z content.json ──────────────────────────
+(async function() {
+  try {
+    const r = await fetch('content.json?t=' + Date.now());
+    const d = await r.json();
+
+    // Hero
+    if (d.hero) {
+      const h = d.hero;
+      const r1 = document.getElementById('hero-r1');
+      const r23 = document.getElementById('hero-r2r3');
+      const perex = document.getElementById('hero-perex');
+      if (r1)   r1.textContent = h.nadpis_radek1 || r1.textContent;
+      if (r23)  r23.innerHTML  = (h.nadpis_radek2 || '') + '<br/>' + (h.nadpis_radek3 || '');
+      if (perex) perex.textContent = h.perex || perex.textContent;
+      const sl = document.getElementById('hero-stat-leta');
+      const sr = document.getElementById('hero-stat-realizace');
+      if (sl) sl.textContent = h.stat_leta     || sl.textContent;
+      if (sr) sr.textContent = h.stat_realizace|| sr.textContent;
+    }
+
+    // Kontakt — telefon a email v různých místech
+    if (d.kontakt) {
+      const k = d.kontakt;
+      document.querySelectorAll('a[href^="tel:"]').forEach(a => {
+        a.href = 'tel:' + k.telefon.replace(/\s/g,'');
+        if (!a.querySelector('span')) a.textContent = k.telefon;
+      });
+      document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+        a.href = 'mailto:' + k.email;
+        if (!a.querySelector('span')) a.textContent = k.email;
+      });
+      // Oblast působení v kontaktu
+      document.querySelectorAll('[data-kontakt="oblast"]').forEach(el => el.textContent = k.oblast);
+      // Footer IČO řádek
+      const icoEl = document.getElementById('footer-ico');
+      if (icoEl) icoEl.innerHTML = k.jmeno + '<br/>IČO: ' + k.ico + '<br/>Nejsem plátce DPH.';
+    }
+
+    // Reference — náhled 4 fotek na hlavní stránce
+    if (d.reference && d.reference.length) {
+      const grid = document.getElementById('ref-preview-grid');
+      if (grid) {
+        const preview = d.reference.slice(0, 4);
+        grid.innerHTML = preview.map(ref => `
+          <div class="gallery-card relative group overflow-hidden">
+            <img class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
+                 alt="${ref.nazev}" src="${ref.src}"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end text-white">
+              <h4 class="font-bold text-lg">${ref.nazev}</h4>
+              <p class="text-sm opacity-80">${ref.misto}</p>
+            </div>
+          </div>`).join('');
+      }
+    }
+
+  } catch(e) {
+    // Web funguje i bez content.json — zobrazí se původní pevné texty
+    console.info('content.json nedostupný, používám pevné texty.');
+  }
+})();
+</script>
+
+</body>
+</html>

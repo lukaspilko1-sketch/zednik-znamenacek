@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Reference – Znamenáček | Poctivé zednictví</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ============================================================
+   PŘIDÁNÍ NOVÉ REFERENCE:
+   Stačí přidat nový objekt do pole REFERENCE níže (v <script>).
+   Každý objekt má tato pole:
+     id       – unikátní číslo
+     src      – cesta k fotce (např. "img/koupelna.jpg")
+     nazev    – název projektu
+     misto    – město/lokalita
+     rok      – rok realizace
+     popis    – krátký popis (1–2 věty)
+     kategorie – "zdeni" | "omitky" | "obklady" | "rekonstrukce"
+   ============================================================ */
+
+:root {
+  --clay:    #f5ede2;
+  --cream:   #fcf9f4;
+  --brick:   #9c4329;
+  --brick-d: #7d2c14;
+  --sand:    #c9a87c;
+  --stone:   #56423d;
+  --ink:     #1c1611;
+  --mist:    #ede8e0;
+  --radius:  0px;
+  --transit: .35s cubic-bezier(.22,.68,0,1.2);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Manrope', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* ── NAV ────────────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(252,249,244,.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--mist);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2.5rem;
+}
+.nav-brand {
+  font-family: 'Noto Serif', serif;
+  font-weight: 900; font-size: 1.25rem;
+  color: var(--brick-d); text-decoration: none;
+  letter-spacing: -.025em;
+}
+.nav-brand span {
+  display: block;
+  font-family: 'Manrope', sans-serif;
+  font-size: .62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .2em;
+  color: var(--sand); margin-top: .05rem;
+}
+.nav-back {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .12em; color: var(--stone);
+  text-decoration: none; transition: color .2s;
+}
+.nav-back:hover { color: var(--brick); }
+.nav-back svg { width: 14px; height: 14px; }
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero {
+  background: linear-gradient(135deg, #7d2c14 0%, #9c4329 60%, #b05438 100%);
+  padding: 6rem 2rem 5rem;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='0' y='0' width='28' height='13' rx='2' fill='%23ffffff' opacity='.05'/%3E%3Crect x='32' y='0' width='28' height='13' rx='2' fill='%23ffffff' opacity='.05'/%3E%3Crect x='16' y='17' width='28' height='13' rx='2' fill='%23ffffff' opacity='.05'/%3E%3Crect x='0' y='34' width='28' height='13' rx='2' fill='%23ffffff' opacity='.05'/%3E%3Crect x='32' y='34' width='28' height='13' rx='2' fill='%23ffffff' opacity='.05'/%3E%3Crect x='16' y='51' width='28' height='13' rx='2' fill='%23ffffff' opacity='.05'/%3E%3C/svg%3E");
+}
+.hero-label {
+  font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .22em;
+  color: var(--sand); margin-bottom: 1.2rem;
+  position: relative;
+}
+.hero h1 {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900; color: #fff;
+  line-height: 1.0; position: relative;
+  margin-bottom: 1rem;
+  letter-spacing: -.03em;
+}
+.hero p {
+  color: rgba(255,255,255,.62);
+  max-width: 460px; margin: 0 auto 2.5rem;
+  font-size: 1rem; line-height: 1.8;
+  position: relative;
+}
+.hero-stat {
+  display: inline-flex; gap: 3.5rem;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 4px;
+  padding: 1rem 3rem;
+  position: relative;
+}
+.stat-val {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.8rem; font-weight: 900;
+  color: #fff; line-height: 1;
+}
+.stat-lbl {
+  font-size: .62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em;
+  color: var(--sand); margin-top: .3rem;
+}
+
+/* ── FILTER ─────────────────────────────────────────────── */
+.filter-bar {
+  padding: 2.5rem 2.5rem 0;
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; gap: .5rem;
+  flex-wrap: wrap;
+}
+.filter-label {
+  font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .16em;
+  color: var(--stone); margin-right: .5rem;
+}
+.filter-btn {
+  padding: .5rem 1.2rem;
+  border-radius: 2px;
+  border: 1.5px solid var(--mist);
+  background: #fff;
+  font-family: 'Manrope', sans-serif;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--stone);
+  cursor: pointer; transition: all .2s;
+}
+.filter-btn:hover { border-color: var(--brick); color: var(--brick); }
+.filter-btn.active {
+  background: var(--brick); border-color: var(--brick);
+  color: #fff;
+}
+
+/* ══ SWISS ─────────────────────────────────────────────── */
+
+/* Horní tick nad hero statistikami */
+.hero-stat > div { position: relative; }
+.hero-stat > div + div::before {
+  content: '';
+  position: absolute; left: -1.75rem; top: 50%;
+  transform: translateY(-50%);
+  width: 1px; height: 2rem;
+  background: rgba(255,255,255,.2);
+}
+
+/* Swiss eyebrow v hero */
+.hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 20px; height: 2px;
+  background: var(--sand);
+  vertical-align: middle;
+  margin-right: .6rem;
+}
+
+/* ── GRID ───────────────────────────────────────────────── */
+.gallery-wrap {
+  max-width: 1400px; margin: 2.5rem auto 0;
+  padding: 0 2.5rem 8rem;
+}
+
+/* Masonry pomocí CSS columns */
+.gallery {
+  columns: 1;
+  column-gap: 1.4rem;
+}
+@media (min-width: 640px)  { .gallery { columns: 2; } }
+@media (min-width: 960px)  { .gallery { columns: 3; } }
+@media (min-width: 1280px) { .gallery { columns: 4; } }
+
+.card {
+  break-inside: avoid;
+  margin-bottom: 1.4rem;
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: var(--mist);
+  border: 1.5px solid var(--mist);
+  /* entrance animation */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease, box-shadow .25s, border-color .25s;
+}
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.card:hover {
+  border-color: var(--brick);
+  box-shadow: 4px 6px 0 0 var(--brick);
+}
+.card img {
+  display: block; width: 100%;
+  transition: transform .6s cubic-bezier(.22,.68,0,1.1);
+}
+.card:hover img { transform: scale(1.06); }
+
+.card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(28,22,17,.88) 0%, rgba(28,22,17,.0) 55%);
+  opacity: 0; transition: opacity .3s;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 1.4rem;
+}
+.card:hover .card-overlay { opacity: 1; }
+
+.card-badge {
+  display: inline-block;
+  font-size: .6rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .12em;
+  background: var(--brick);
+  color: #fff; border-radius: 4px;
+  padding: .18rem .55rem; margin-bottom: .5rem;
+}
+.card-title {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: #fff; line-height: 1.2;
+}
+.card-meta {
+  font-size: .75rem; color: rgba(255,255,255,.6);
+  margin-top: .25rem;
+}
+.card-zoom {
+  position: absolute; top: .9rem; right: .9rem;
+  width: 34px; height: 34px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(6px);
+  border-radius: 50%; border: 1px solid rgba(255,255,255,.2);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .3s, transform .3s;
+  transform: scale(.8);
+}
+.card:hover .card-zoom { opacity: 1; transform: scale(1); }
+.card-zoom svg { width: 15px; height: 15px; stroke: #fff; }
+
+/* hidden = filtered out */
+.card.hidden {
+  display: none;
+}
+
+/* empty state */
+.empty-state {
+  text-align: center; padding: 5rem 2rem;
+  color: var(--stone); font-size: .95rem;
+  display: none;
+}
+.empty-state.show { display: block; }
+
+/* ── LIGHTBOX ────────────────────────────────────────────── */
+.lb {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(10,7,4,.92);
+  backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
+  padding: 1.5rem;
+}
+.lb.open { opacity: 1; pointer-events: all; }
+
+.lb-inner {
+  max-width: 1100px; width: 100%;
+  display: flex; flex-col: column;
+  gap: 1.5rem;
+  transform: scale(.94);
+  transition: transform .35s cubic-bezier(.22,.68,0,1.1);
+}
+.lb.open .lb-inner { transform: scale(1); }
+
+.lb-img-wrap {
+  border-radius: var(--radius);
+  overflow: hidden; max-height: 72vh;
+  display: flex; align-items: center; justify-content: center;
+  background: #111;
+}
+.lb-img-wrap img {
+  max-width: 100%; max-height: 72vh;
+  object-fit: contain; display: block;
+}
+.lb-info {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 1rem;
+  flex-wrap: wrap;
+}
+.lb-title {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.3rem; font-weight: 700; color: #fff;
+}
+.lb-desc {
+  font-size: .85rem; color: rgba(255,255,255,.55);
+  margin-top: .3rem; max-width: 540px; line-height: 1.6;
+}
+.lb-meta {
+  display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .4rem;
+}
+.lb-tag {
+  font-size: .68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  padding: .2rem .65rem; border-radius: 100px;
+  background: rgba(255,255,255,.1); color: var(--sand);
+}
+
+.lb-nav {
+  display: flex; gap: .6rem;
+}
+.lb-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+  flex-shrink: 0;
+}
+.lb-btn:hover { background: var(--brick); border-color: var(--brick); }
+.lb-btn svg { width: 18px; height: 18px; stroke: currentColor; }
+.lb-close {
+  position: fixed; top: 1.2rem; right: 1.5rem;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.lb-close:hover { background: rgba(255,255,255,.2); }
+
+/* ── CTA ─────────────────────────────────────────────────── */
+.cta-bar {
+  background: linear-gradient(135deg, #7d2c14 0%, #9c4329 100%);
+  padding: 5rem 2rem;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-bar::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect x='0' y='0' width='28' height='13' rx='2' fill='%23ffffff' opacity='.04'/%3E%3Crect x='32' y='0' width='28' height='13' rx='2' fill='%23ffffff' opacity='.04'/%3E%3Crect x='16' y='17' width='28' height='13' rx='2' fill='%23ffffff' opacity='.04'/%3E%3Crect x='0' y='34' width='28' height='13' rx='2' fill='%23ffffff' opacity='.04'/%3E%3Crect x='32' y='34' width='28' height='13' rx='2' fill='%23ffffff' opacity='.04'/%3E%3Crect x='16' y='51' width='28' height='13' rx='2' fill='%23ffffff' opacity='.04'/%3E%3C/svg%3E");
+}
+.cta-bar-inner { position: relative; }
+.cta-label {
+  font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .22em;
+  color: var(--sand); display: block; margin-bottom: 1rem;
+}
+.cta-bar h2 {
+  font-family: 'Noto Serif', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900; letter-spacing: -.025em;
+  color: #fff;
+  margin-bottom: .75rem; line-height: 1.1;
+}
+.cta-bar p { color: rgba(255,255,255,.65); margin-bottom: 2rem; font-size: 1rem; line-height: 1.7; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: #fff; color: var(--brick-d);
+  padding: 1rem 2.8rem; border-radius: 2px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700; font-size: .78rem;
+  text-transform: uppercase; letter-spacing: .1em;
+  text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s;
+  box-shadow: 0 8px 32px rgba(0,0,0,.2);
+}
+.cta-btn:hover { background: var(--cream); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,.25); }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer {
+  background: #1c1410;
+  color: rgba(255,255,255,.35);
+  padding: 2rem 2.5rem; text-align: center;
+  font-size: .75rem; letter-spacing: .02em;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+footer a { color: var(--sand); text-decoration: none; transition: color .2s; }
+footer a:hover { color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- ─────────── NAV ─────────── -->
+<nav>
+  <a class="nav-brand" href="index.html">Jiří Znamenáček<span>Zednictví · Kovanice</span></a>
+  <a class="nav-back" href="index.html">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 1L3 7l6 6"/>
+    </svg>
+    Zpět na hlavní stránku
+  </a>
+</nav>
+
+<!-- ─────────── HERO ─────────── -->
+<section class="hero">
+  <p class="hero-label">Znamenáček – portfolio prací</p>
+  <h1>Reference<br/>a realizace</h1>
+  <p>Výběr z dokončených zakázek. Kliknutím na fotku zobrazíte detail projektu.</p>
+
+</section>
+
+<!-- ─────────── FILTER ─────────── -->
+<div class="filter-bar" id="filterBar">
+  <span class="filter-label">Filtr:</span>
+  <button class="filter-btn active" data-filter="vse">Vše</button>
+  <button class="filter-btn" data-filter="zdeni">Zdění</button>
+  <button class="filter-btn" data-filter="omitky">Omítky</button>
+  <button class="filter-btn" data-filter="obklady">Obklady&nbsp;&amp;&nbsp;dlažby</button>
+  <button class="filter-btn" data-filter="rekonstrukce">Rekonstrukce</button>
+</div>
+
+<!-- ─────────── GALLERY ─────────── -->
+<div class="gallery-wrap">
+  <div class="gallery" id="gallery"></div>
+  <p class="empty-state" id="emptyState">Žádné reference v této kategorii.</p>
+</div>
+
+<!-- ─────────── LIGHTBOX ─────────── -->
+<div class="lb" id="lb" role="dialog" aria-modal="true">
+  <button class="lb-close" id="lbClose" aria-label="Zavřít">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <line x1="2" y1="2" x2="16" y2="16"/><line x1="16" y1="2" x2="2" y2="16"/>
+    </svg>
+  </button>
+  <div class="lb-inner">
+    <div class="lb-img-wrap">
+      <img id="lbImg" src="" alt=""/>
+    </div>
+    <div class="lb-info">
+      <div>
+        <div class="lb-title" id="lbTitle"></div>
+        <div class="lb-meta" id="lbMeta"></div>
+        <div class="lb-desc" id="lbDesc"></div>
+      </div>
+      <div class="lb-nav">
+        <button class="lb-btn" id="lbPrev" aria-label="Předchozí">
+          <svg viewBox="0 0 18 18" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 3L5 9l6 6"/>
+          </svg>
+        </button>
+        <button class="lb-btn" id="lbNext" aria-label="Další">
+          <svg viewBox="0 0 18 18" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 3l6 6-6 6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── CTA ─────────── -->
+<div class="cta-bar">
+  <div class="cta-bar-inner">
+    <span class="cta-label">Pojďme spolupracovat</span>
+    <h2>Líbí se vám práce?</h2>
+    <p>Ozvěte se mi a domluvíme si nezávaznou prohlídku přímo na místě.</p>
+    <a class="cta-btn" href="index.html#kontakt">
+      Poptat zakázku
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer>
+  <p>© 2024 <a href="index.html">Znamenáček</a> – Kovanice, okres Nymburk &nbsp;|&nbsp; +420 777 123 456</p>
+</footer>
+
+
+<script>
+/* ============================================================
+   ★  PŘIDÁNÍ NOVÉ REFERENCE  ★
+   Zkopíruj jeden z objektů níže, uprav hodnoty a ulož soubor.
+   Fotky dej do složky "img/" vedle tohoto souboru.
+
+   Kategorie: "zdeni" | "omitky" | "obklady" | "rekonstrukce"
+   ============================================================ */
+
+// Data se načítají z content.json — viz funkce init() níže
+let REFERENCE = [];
+
+/* ── Konstanty kategorií ── */
+const KAT_NAZVY = {
+  zdeni: "Zdění",
+  omitky: "Omítky",
+  obklady: "Obklady & dlažby",
+  rekonstrukce: "Rekonstrukce"
+};
+
+/* ── Stavová proměnná ── */
+let aktivniFilter = "vse";
+let lbIndex = 0;       // index v REFERENCE
+let viditelne = [];    // filtrovane REFERENCE
+
+/* ── Render galerie ── */
+function renderGallery() {
+  viditelne = aktivniFilter === "vse"
+    ? REFERENCE
+    : REFERENCE.filter(r => r.kategorie === aktivniFilter);
+
+  const gallery = document.getElementById("gallery");
+  const empty   = document.getElementById("emptyState");
+
+  gallery.innerHTML = "";
+  empty.classList.toggle("show", viditelne.length === 0);
+
+  viditelne.forEach((ref, i) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.index = i;
+    card.innerHTML = `
+      <img src="${ref.src}" alt="${ref.nazev}" loading="lazy"/>
+      <div class="card-overlay">
+        <span class="card-badge">${KAT_NAZVY[ref.kategorie] || ref.kategorie}</span>
+        <div class="card-title">${ref.nazev}</div>
+        <div class="card-meta">${ref.misto} &middot; ${ref.rok}</div>
+      </div>
+      <div class="card-zoom" aria-hidden="true">
+        <svg viewBox="0 0 18 18" fill="none" stroke-width="2" stroke-linecap="round">
+          <circle cx="8" cy="8" r="5"/><path d="M12 12l4 4"/>
+        </svg>
+      </div>
+    `;
+    card.addEventListener("click", () => openLb(i));
+    gallery.appendChild(card);
+
+    // staggered entrance
+    requestAnimationFrame(() => {
+      setTimeout(() => card.classList.add("visible"), i * 55);
+    });
+  });
+
+  document.getElementById("stat-count").textContent = REFERENCE.length;
+}
+
+/* ── Filter ── */
+document.getElementById("filterBar").addEventListener("click", e => {
+  const btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  aktivniFilter = btn.dataset.filter;
+  renderGallery();
+});
+
+/* ── Lightbox ── */
+function openLb(idx) {
+  lbIndex = idx;
+  renderLb();
+  document.getElementById("lb").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeLb() {
+  document.getElementById("lb").classList.remove("open");
+  document.body.style.overflow = "";
+}
+function renderLb() {
+  const ref = viditelne[lbIndex];
+  document.getElementById("lbImg").src  = ref.src;
+  document.getElementById("lbImg").alt  = ref.nazev;
+  document.getElementById("lbTitle").textContent = ref.nazev;
+  document.getElementById("lbDesc").textContent  = ref.popis;
+  document.getElementById("lbMeta").innerHTML =
+    `<span class="lb-tag">${KAT_NAZVY[ref.kategorie] || ref.kategorie}</span>
+     <span class="lb-tag">${ref.misto}</span>
+     <span class="lb-tag">${ref.rok}</span>`;
+}
+function lbStep(dir) {
+  lbIndex = (lbIndex + dir + viditelne.length) % viditelne.length;
+  renderLb();
+}
+
+document.getElementById("lbClose").addEventListener("click", closeLb);
+document.getElementById("lbPrev").addEventListener("click", () => lbStep(-1));
+document.getElementById("lbNext").addEventListener("click", () => lbStep(1));
+document.getElementById("lb").addEventListener("click", e => {
+  if (e.target === document.getElementById("lb")) closeLb();
+});
+document.addEventListener("keydown", e => {
+  if (!document.getElementById("lb").classList.contains("open")) return;
+  if (e.key === "Escape") closeLb();
+  if (e.key === "ArrowLeft")  lbStep(-1);
+  if (e.key === "ArrowRight") lbStep(1);
+});
+
+/* ── Init: načtení dat z content.json ── */
+async function init() {
+  try {
+    const r = await fetch('content.json?t=' + Date.now());
+    const data = await r.json();
+    REFERENCE = data.reference || [];
+  } catch(err) {
+    console.warn('Nelze načíst content.json', err);
+    REFERENCE = [];
+  }
+  renderGallery();
+}
+init();
+</script>
+</body>
+</html>
