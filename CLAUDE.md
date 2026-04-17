@@ -1,10 +1,14 @@
 # Instrukce pro Claude Code
 
 ## Automatické aktualizace
-Po každé dokončené změně souborů projektu:
+Po každé dokončené změně souborů projektu VŽDY (bez výjimky):
 1. Přidej záznam do sekce `## Changelog` ve formátu `| RRRR-MM-DD | popis změny |`
 2. Aktualizuj stav v `## Stav placeholderů` pokud byl nějaký placeholder nahrazen
 3. Odškrtni položku v `## TODO` pokud byla splněna (změň `[ ]` na `[x]`)
+4. Na konci každé odpovědi připomeň uživateli:
+   „✅ CLAUDE.md aktualizován — nezapomeň pushnut na GitHub."
+
+> Toto je povinný poslední krok každého úkolu. Bez výjimky.
 
 ## Pravidla pro tento projekt
 - Vždy zachovej design systém (barvy, fonty, Swiss styl)
