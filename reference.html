@@ -123,35 +123,6 @@ nav {
   color: var(--sand); margin-top: .3rem;
 }
 
-/* ── FILTER ─────────────────────────────────────────────── */
-.filter-bar {
-  padding: 2.5rem 2.5rem 0;
-  max-width: 1400px; margin: 0 auto;
-  display: flex; align-items: center; gap: .5rem;
-  flex-wrap: wrap;
-}
-.filter-label {
-  font-size: .65rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .16em;
-  color: var(--stone); margin-right: .5rem;
-}
-.filter-btn {
-  padding: .5rem 1.2rem;
-  border-radius: 2px;
-  border: 1.5px solid var(--mist);
-  background: #fff;
-  font-family: 'Manrope', sans-serif;
-  font-size: .72rem; font-weight: 700;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--stone);
-  cursor: pointer; transition: all .2s;
-}
-.filter-btn:hover { border-color: var(--brick); color: var(--brick); }
-.filter-btn.active {
-  background: var(--brick); border-color: var(--brick);
-  color: #fff;
-}
 
 /* ══ SWISS ─────────────────────────────────────────────── */
 
@@ -175,91 +146,97 @@ nav {
   margin-right: .6rem;
 }
 
-/* ── GRID ───────────────────────────────────────────────── */
+/* ── GALERIE ─────────────────────────────────────────────── */
 .gallery-wrap {
-  max-width: 1400px; margin: 2.5rem auto 0;
-  padding: 0 2.5rem 8rem;
+  max-width: 1000px; margin: 3rem auto 0;
+  padding: 0 2rem 8rem;
 }
 
-/* Masonry pomocí CSS columns */
 .gallery {
-  columns: 1;
-  column-gap: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
-@media (min-width: 640px)  { .gallery { columns: 2; } }
-@media (min-width: 960px)  { .gallery { columns: 3; } }
-@media (min-width: 1280px) { .gallery { columns: 4; } }
 
 .card {
-  break-inside: avoid;
-  margin-bottom: 1.4rem;
-  border-radius: 0;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  background: var(--mist);
+  display: grid;
+  grid-template-columns: 340px 1fr;
   border: 1.5px solid var(--mist);
-  /* entrance animation */
+  overflow: hidden;
+  cursor: pointer;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(16px);
   transition: opacity .5s ease, transform .5s ease, box-shadow .25s, border-color .25s;
 }
-.card.visible {
-  opacity: 1;
-  transform: translateY(0);
+.card.visible { opacity: 1; transform: translateY(0); }
+.card:hover { border-color: var(--brick); box-shadow: 4px 6px 0 0 var(--brick); }
+
+.card-img-wrap {
+  overflow: hidden;
+  aspect-ratio: 4/3;
 }
-.card:hover {
-  border-color: var(--brick);
-  box-shadow: 4px 6px 0 0 var(--brick);
-}
-.card img {
-  display: block; width: 100%;
+.card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
   transition: transform .6s cubic-bezier(.22,.68,0,1.1);
 }
-.card:hover img { transform: scale(1.06); }
+.card:hover .card-img-wrap img { transform: scale(1.05); }
 
-.card-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(28,22,17,.88) 0%, rgba(28,22,17,.0) 55%);
-  opacity: 0; transition: opacity .3s;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 1.4rem;
+.card-body {
+  padding: 1.8rem 2rem;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  gap: .75rem;
 }
-.card:hover .card-overlay { opacity: 1; }
 
 .card-badge {
   display: inline-block;
   font-size: .6rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: .12em;
-  background: var(--brick);
-  color: #fff; border-radius: 4px;
-  padding: .18rem .55rem; margin-bottom: .5rem;
+  background: var(--brick); color: #fff;
+  padding: .18rem .55rem;
 }
 .card-title {
   font-family: 'Noto Serif', serif;
-  font-size: 1.05rem; font-weight: 700;
-  color: #fff; line-height: 1.2;
+  font-size: 1.35rem; font-weight: 700;
+  color: var(--ink); line-height: 1.2;
+  margin: .35rem 0 .2rem;
 }
 .card-meta {
-  font-size: .75rem; color: rgba(255,255,255,.6);
-  margin-top: .25rem;
+  font-size: .78rem; color: var(--stone);
+  letter-spacing: .03em;
 }
-.card-zoom {
-  position: absolute; top: .9rem; right: .9rem;
-  width: 34px; height: 34px;
-  background: rgba(255,255,255,.15);
-  backdrop-filter: blur(6px);
-  border-radius: 50%; border: 1px solid rgba(255,255,255,.2);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity .3s, transform .3s;
-  transform: scale(.8);
+.card-popis {
+  font-size: .88rem; color: var(--stone);
+  line-height: 1.7; margin-top: .5rem;
+  flex-grow: 1;
 }
-.card:hover .card-zoom { opacity: 1; transform: scale(1); }
-.card-zoom svg { width: 15px; height: 15px; stroke: #fff; }
+.card-footer {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  border-top: 1px solid var(--mist);
+  margin-top: auto;
+}
+.card-photo-count {
+  font-size: .7rem; font-weight: 700;
+  letter-spacing: .08em; color: var(--stone);
+  text-transform: uppercase;
+}
+.card-cta {
+  font-size: .78rem; font-weight: 700;
+  color: var(--brick); letter-spacing: .03em;
+}
 
-/* hidden = filtered out */
-.card.hidden {
-  display: none;
+@media (max-width: 640px) {
+  .card { grid-template-columns: 1fr; }
+  .card-img-wrap { aspect-ratio: 16/9; }
+  .card-body { padding: 1.2rem 1.2rem; }
+}
+
+.lb-counter {
+  font-size: .75rem; color: rgba(255,255,255,.45);
+  letter-spacing: .12em; text-align: center;
 }
 
 /* empty state */
@@ -420,16 +397,6 @@ footer a:hover { color: #fff; }
 
 </section>
 
-<!-- ─────────── FILTER ─────────── -->
-<div class="filter-bar" id="filterBar">
-  <span class="filter-label">Filtr:</span>
-  <button class="filter-btn active" data-filter="vse">Vše</button>
-  <button class="filter-btn" data-filter="zdeni">Zdění</button>
-  <button class="filter-btn" data-filter="omitky">Omítky</button>
-  <button class="filter-btn" data-filter="obklady">Obklady&nbsp;&amp;&nbsp;dlažby</button>
-  <button class="filter-btn" data-filter="rekonstrukce">Rekonstrukce</button>
-</div>
-
 <!-- ─────────── GALLERY ─────────── -->
 <div class="gallery-wrap">
   <div class="gallery" id="gallery"></div>
@@ -459,6 +426,7 @@ footer a:hover { color: #fff; }
             <path d="M11 3L5 9l6 6"/>
           </svg>
         </button>
+        <div class="lb-counter" id="lbCounter"></div>
         <button class="lb-btn" id="lbNext" aria-label="Další">
           <svg viewBox="0 0 18 18" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M7 3l6 6-6 6"/>
@@ -510,16 +478,14 @@ const KAT_NAZVY = {
   rekonstrukce: "Rekonstrukce"
 };
 
-/* ── Stavová proměnná ── */
-let aktivniFilter = "vse";
-let lbIndex = 0;       // index v REFERENCE
-let viditelne = [];    // filtrovane REFERENCE
+/* ── Stav lightboxu ── */
+let viditelne  = [];
+let lbRefIndex = 0;   // která reference je otevřená
+let lbImgIndex = 0;   // která fotka v rámci reference
 
 /* ── Render galerie ── */
 function renderGallery() {
-  viditelne = aktivniFilter === "vse"
-    ? REFERENCE
-    : REFERENCE.filter(r => r.kategorie === aktivniFilter);
+  viditelne = REFERENCE;
 
   const gallery = document.getElementById("gallery");
   const empty   = document.getElementById("emptyState");
@@ -528,47 +494,43 @@ function renderGallery() {
   empty.classList.toggle("show", viditelne.length === 0);
 
   viditelne.forEach((ref, i) => {
+    const thumb = ref.folder + "/" + ref.images[0];
+    const pocet = ref.images.length;
     const card = document.createElement("div");
     card.className = "card";
     card.dataset.index = i;
     card.innerHTML = `
-      <img src="${ref.src}" alt="${ref.nazev}" loading="lazy"/>
-      <div class="card-overlay">
-        <span class="card-badge">${KAT_NAZVY[ref.kategorie] || ref.kategorie}</span>
-        <div class="card-title">${ref.nazev}</div>
-        <div class="card-meta">${ref.misto} &middot; ${ref.rok}</div>
+      <div class="card-img-wrap">
+        <img src="${thumb}" alt="${ref.nazev}" loading="lazy"/>
       </div>
-      <div class="card-zoom" aria-hidden="true">
-        <svg viewBox="0 0 18 18" fill="none" stroke-width="2" stroke-linecap="round">
-          <circle cx="8" cy="8" r="5"/><path d="M12 12l4 4"/>
-        </svg>
+      <div class="card-body">
+        <div>
+          <span class="card-badge">${KAT_NAZVY[ref.kategorie] || ref.kategorie}</span>
+          <h3 class="card-title">${ref.nazev}</h3>
+          <div class="card-meta">${ref.misto} &middot; ${ref.rok}</div>
+          <p class="card-popis">${ref.popis}</p>
+        </div>
+        <div class="card-footer">
+          <span class="card-photo-count">${pocet}&thinsp;fotek</span>
+          <span class="card-cta">Zobrazit galerii &rarr;</span>
+        </div>
       </div>
     `;
     card.addEventListener("click", () => openLb(i));
     gallery.appendChild(card);
 
-    // staggered entrance
     requestAnimationFrame(() => {
-      setTimeout(() => card.classList.add("visible"), i * 55);
+      setTimeout(() => card.classList.add("visible"), i * 80);
     });
   });
 
   document.getElementById("stat-count").textContent = REFERENCE.length;
 }
 
-/* ── Filter ── */
-document.getElementById("filterBar").addEventListener("click", e => {
-  const btn = e.target.closest(".filter-btn");
-  if (!btn) return;
-  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  aktivniFilter = btn.dataset.filter;
-  renderGallery();
-});
-
 /* ── Lightbox ── */
-function openLb(idx) {
-  lbIndex = idx;
+function openLb(refIdx) {
+  lbRefIndex = refIdx;
+  lbImgIndex = 0;
   renderLb();
   document.getElementById("lb").classList.add("open");
   document.body.style.overflow = "hidden";
@@ -578,8 +540,11 @@ function closeLb() {
   document.body.style.overflow = "";
 }
 function renderLb() {
-  const ref = viditelne[lbIndex];
-  document.getElementById("lbImg").src  = ref.src;
+  const ref   = viditelne[lbRefIndex];
+  const total = ref.images.length;
+  const src   = ref.folder + "/" + ref.images[lbImgIndex];
+
+  document.getElementById("lbImg").src  = src;
   document.getElementById("lbImg").alt  = ref.nazev;
   document.getElementById("lbTitle").textContent = ref.nazev;
   document.getElementById("lbDesc").textContent  = ref.popis;
@@ -587,9 +552,16 @@ function renderLb() {
     `<span class="lb-tag">${KAT_NAZVY[ref.kategorie] || ref.kategorie}</span>
      <span class="lb-tag">${ref.misto}</span>
      <span class="lb-tag">${ref.rok}</span>`;
+
+  // počítadlo a viditelnost nav
+  const counter = document.getElementById("lbCounter");
+  const nav     = document.querySelector(".lb-nav");
+  counter.textContent = total > 1 ? `${lbImgIndex + 1} / ${total}` : "";
+  nav.style.display   = total > 1 ? "" : "none";
 }
 function lbStep(dir) {
-  lbIndex = (lbIndex + dir + viditelne.length) % viditelne.length;
+  const ref = viditelne[lbRefIndex];
+  lbImgIndex = (lbImgIndex + dir + ref.images.length) % ref.images.length;
   renderLb();
 }
 
@@ -601,9 +573,9 @@ document.getElementById("lb").addEventListener("click", e => {
 });
 document.addEventListener("keydown", e => {
   if (!document.getElementById("lb").classList.contains("open")) return;
-  if (e.key === "Escape") closeLb();
-  if (e.key === "ArrowLeft")  lbStep(-1);
-  if (e.key === "ArrowRight") lbStep(1);
+  if (e.key === "Escape")      closeLb();
+  if (e.key === "ArrowLeft")   lbStep(-1);
+  if (e.key === "ArrowRight")  lbStep(1);
 });
 
 /* ── Init: načtení dat z content.json ── */

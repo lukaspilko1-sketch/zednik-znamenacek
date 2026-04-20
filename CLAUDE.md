@@ -140,18 +140,40 @@ Sídlo:    Kovanice, okres Nymburk
 | Email | ✅ Reálný (`znamenacek22@seznam.cz`) |
 | IČO | ✅ Reálný (`69531099`) |
 | Formspree endpoint | ⚠️ Placeholder (`https://formspree.io/f/XXXXXXXX`) |
-| Portrét foto | ⚠️ Stock foto (Google AI placeholder) |
+| Portrét foto | ✅ Reálný (`img/homepage/o-mne.jpg`) |
 | Hero foto | ⚠️ Stock foto |
-| Reference foto | ⚠️ Paths ref1–ref8.jpg (reálné fotky zatím nejsou) |
+| Reference foto | ✅ Reálná zakázka `2026-04-oprava-omitky-nymburk` (10 fotek) |
 | Jména v hodnoceních | ⚠️ Fiktivní (Marek Svoboda, Jana Nováková, Petr Černý) |
+
+## Struktura referencí (standardizovaná)
+
+Každá reference = podsložka v `img/reference/` ve formátu `YYYY-MM-popis-lokace/`.
+
+**Konvence pojmenování souborů:** `YYYY-MM-popis-lokace-01.jpg`, `-02.jpg` …
+
+**Struktura v content.json:**
+```json
+{
+  "id": "YYYY-MM-popis-lokace",
+  "folder": "img/reference/YYYY-MM-popis-lokace",
+  "nazev": "Lidsky čitelný název",
+  "misto": "Město",
+  "rok": YYYY,
+  "popis": "Popis zakázky.",
+  "kategorie": "zdeni|omitky|obklady|rekonstrukce",
+  "images": ["soubor-01.jpg", "soubor-02.jpg", ...]
+}
+```
+
+Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne mezi referencemi).
 
 ---
 
 ## TODO / Rozpracované
 
 - [ ] Nahradit Formspree placeholder reálným endpointem
-- [ ] Dodat reálný portrét Jiřího
-- [ ] Dodat reálné fotky realizací do img/reference/
+- [x] Dodat reálný portrét Jiřího
+- [x] Dodat reálné fotky realizací do img/reference/
 - [ ] Nahradit fiktivní jména v hodnoceních reálnými
 - [ ] Nastavit .htpasswd pro admin panel (změnit doménu v .htaccess)
 - [ ] Mobilní menu (hamburger button je v HTML, logika chybí)
@@ -178,3 +200,8 @@ Sídlo:    Kovanice, okres Nymburk
 | 2025-01 | v7: Swiss styl, bento grid služeb |
 | 2025-01 | v8: finální merge, admin panel, content.json |
 | 2025-04 | Přidán CLAUDE.md |
+| 2026-04-20 | Portrét o-mne.jpg: stock → reálná fotka |
+| 2026-04-20 | Reference: nová folder-based struktura (folder + images[]) |
+| 2026-04-20 | Přidána zakázka 2026-04-oprava-omitky-nymburk (10 fotek) |
+| 2026-04-20 | reference.html: lightbox s multi-foto galerií a počítadlem |
+| 2026-04-20 | reference.html: odstraněny filtry, galerie překreslena na vertikální stack karet (obraz + info) |

@@ -42,13 +42,26 @@
     { "text": "Zdění lícových cihel vyžaduje trpělivost a cit. Pan Znamenáček obojí má. Fasáda vypadá úžasně, sousedé se chodí ptát, kdo to dělal.", "autor": "Petr Černý", "mesto": "Roztoky" }
   ],
   "reference": [
-    { "id": 1, "src": "img/reference/ref1.jpg", "nazev": "Interiérová cihlová stěna",  "misto": "Praha – Strašnice",  "rok": 2023, "popis": "Pohledové zdivo z lícových cihel jako designový prvek obývacího pokoje. Spárování provedeno bílou fugou.",                          "kategorie": "zdeni" },
-    { "id": 2, "src": "img/reference/ref2.jpg", "nazev": "Štukové omítky – rodinný dům","misto": "Beroun",            "rok": 2023, "popis": "Kompletní vnitřní omítky celého domu. Rovné plochy připravené pro malbu bez dalšího tmelení.",                                    "kategorie": "omitky" },
-    { "id": 3, "src": "img/reference/ref3.jpg", "nazev": "Venkovní terasa – kamenná dlažba","misto": "Kladno",        "rok": 2022, "popis": "Pokládka velkoformátové kamenné dlažby včetně schodů a atiky. Spád odveden do liniového žlabu.",                                  "kategorie": "obklady" },
-    { "id": 4, "src": "img/reference/ref4.jpg", "nazev": "Novostavba – kompletní zdění","misto": "Říčany",            "rok": 2022, "popis": "Hrubá stavba rodinného domu včetně nosného zdiva, příček a fasády. Ytong + lícové cihly na ostění oken.",                          "kategorie": "zdeni" },
-    { "id": 5, "src": "img/reference/ref5.jpg", "nazev": "Krbová stěna z pískovce",    "misto": "Benešov",            "rok": 2023, "popis": "Obklad celé stěny za krbem nepravidelnými bloky přírodního pískovce. Spojení estetiky a tepelné odolnosti.",                       "kategorie": "obklady" },
-    { "id": 6, "src": "img/reference/ref6.jpg", "nazev": "Oplocení – lícové zdivo",    "misto": "Roztoky",            "rok": 2021, "popis": "Plot z lícových cihel Klinker s betonovou římsou a kovanou výplní. Délka 38 metrů.",                                               "kategorie": "zdeni" },
-    { "id": 7, "src": "img/reference/ref7.jpg", "nazev": "Rekonstrukce chalupy",       "misto": "Středočeský kraj",   "rok": 2021, "popis": "Sanace vlhkého zdiva, nové vápenné omítky a obnova původní kamenné soklové části.",                                                "kategorie": "rekonstrukce" },
-    { "id": 8, "src": "img/reference/ref8.jpg", "nazev": "Zděná přizdívka a omítky",  "misto": "Hostivice",          "rok": 2024, "popis": "Přizdění jádrové omítky strojně, finišována ručně. Výsledek je rovný bez viditelných švů.",                                         "kategorie": "omitky" }
+    {
+      "id": "2026-04-oprava-omitky-nymburk",
+      "folder": "img/reference/2026-04-oprava-omitky-nymburk",
+      "nazev": "Oprava omítky – Nymburk",
+      "misto": "Nymburk",
+      "rok": 2026,
+      "popis": "Oprava fasádních a interiérových omítek rodinného domu. Jádrová omítka strojně, finální vrstva ručně hlazená. Výsledek rovný povrch bez viditelných švů.",
+      "kategorie": "omitky",
+      "images": [
+        "2026-04-oprava-omitky-nymburk-01.jpg",
+        "2026-04-oprava-omitky-nymburk-02.jpg",
+        "2026-04-oprava-omitky-nymburk-03.jpg",
+        "2026-04-oprava-omitky-nymburk-04.jpg",
+        "2026-04-oprava-omitky-nymburk-05.jpg",
+        "2026-04-oprava-omitky-nymburk-07.jpg",
+        "2026-04-oprava-omitky-nymburk-08.jpg",
+        "2026-04-oprava-omitky-nymburk-09.jpg",
+        "2026-04-oprava-omitky-nymburk-10.jpg",
+        "2026-04-oprava-omitky-nymburk-11.jpg"
+      ]
+    }
   ]
 }

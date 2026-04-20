@@ -498,7 +498,7 @@
 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
   <div class="relative">
     <div class="aspect-[3/4] rounded-xl overflow-hidden shadow-2xl relative z-10">
-      <img class="w-full h-full object-cover" alt="Portrét Jiřího Znamenáčka" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFbhQ_49rR7Vp_rvU-QgaG6KVV4wlh9S_rPngj7vjwTJ_fVrvnk85ya84s0lD-OKfuWO3vtdiVBiG27ubmkrTDHHF4w4IjnDQS82oCNf_RMEU7Ukg0VoDdxGwrAnpMOL8WiC_3wPuybNbyRVLb0AxGmv08zHmwpOmc6dMGxp4lsE8eS1DCOg8o57w1qkoI9IAkGWe3hZV3YFd-y-iqXkvBjkOr0w1wNK7RuMjwDCEvZbzvcMDtZNmY0Z5L5bfNfcYBdgA9ZTX60Q"/>
+      <img class="w-full h-full object-cover" alt="Portrét Jiřího Znamenáčka" src="img/homepage/o-mne.jpg"/>
     </div>
     <div class="absolute -top-10 -left-10 w-48 h-48 bg-primary rounded-xl -z-0 opacity-10"></div>
     <div class="absolute -bottom-10 -right-10 w-72 h-72 border-8 border-secondary-container rounded-xl -z-0"></div>
@@ -858,15 +858,18 @@
       const grid = document.getElementById('ref-preview-grid');
       if (grid) {
         const preview = d.reference.slice(0, 4);
-        grid.innerHTML = preview.map(ref => `
+        grid.innerHTML = preview.map(ref => {
+          const thumb = ref.folder + '/' + ref.images[0];
+          return `
           <div class="gallery-card relative group overflow-hidden">
             <img class="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-500"
-                 alt="${ref.nazev}" src="${ref.src}"/>
+                 alt="${ref.nazev}" src="${thumb}"/>
             <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end text-white">
               <h4 class="font-bold text-lg">${ref.nazev}</h4>
               <p class="text-sm opacity-80">${ref.misto}</p>
             </div>
-          </div>`).join('');
+          </div>`;
+        }).join('');
       }
     }
 
