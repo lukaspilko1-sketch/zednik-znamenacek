@@ -351,10 +351,20 @@
       <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
     </a>
   </div>
-  <button class="md:hidden p-2">
-    <span class="material-symbols-outlined">menu</span>
+  <button id="nav-toggle" class="md:hidden p-2 text-[#1c1611]" aria-label="Otevřít menu" aria-expanded="false">
+    <span class="material-symbols-outlined" id="nav-icon">menu</span>
   </button>
 </nav>
+<!-- mobilní menu -->
+<div id="mobile-menu" class="md:hidden hidden border-t border-stone-200/60 bg-[#fcf9f4]">
+  <div class="flex flex-col px-6 py-5 gap-1">
+    <a class="py-3 border-b border-stone-100 text-sm font-bold text-[#1c1611] hover:text-[#9c4329] transition-colors" href="#sluzby">Služby</a>
+    <a class="py-3 border-b border-stone-100 text-sm font-bold text-[#1c1611] hover:text-[#9c4329] transition-colors" href="#o-mne">O mně</a>
+    <a class="py-3 border-b border-stone-100 text-sm font-bold text-[#1c1611] hover:text-[#9c4329] transition-colors" href="reference.html">Reference</a>
+    <a class="py-3 border-b border-stone-100 text-sm font-bold text-[#1c1611] hover:text-[#9c4429] transition-colors" href="#kontakt">Kontakt</a>
+    <a class="mt-4 btn-primary px-6 py-3 bg-[#9c4329] text-white text-sm font-bold text-center rounded-sm hover:bg-[#7d2c14]" href="#kontakt">Poptat práci</a>
+  </div>
+</div>
 </header>
 
 <main class="pt-20">
@@ -877,6 +887,28 @@
     // Web funguje i bez content.json — zobrazí se původní pevné texty
     console.info('content.json nedostupný, používám pevné texty.');
   }
+})();
+
+/* ── Mobilní menu ── */
+(function() {
+  const toggle = document.getElementById('nav-toggle');
+  const menu   = document.getElementById('mobile-menu');
+  const icon   = document.getElementById('nav-icon');
+
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('hidden') === false;
+    icon.textContent = open ? 'close' : 'menu';
+    toggle.setAttribute('aria-expanded', open);
+  });
+
+  // zavřít při kliknutí na odkaz
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      icon.textContent = 'menu';
+      toggle.setAttribute('aria-expanded', false);
+    });
+  });
 })();
 </script>
 

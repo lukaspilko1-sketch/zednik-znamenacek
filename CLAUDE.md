@@ -176,7 +176,7 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 - [x] Dodat reálné fotky realizací do img/reference/
 - [ ] Nahradit fiktivní jména v hodnoceních reálnými
 - [ ] Nastavit .htpasswd pro admin panel (změnit doménu v .htaccess)
-- [ ] Mobilní menu (hamburger button je v HTML, logika chybí)
+- [x] Mobilní menu (hamburger button je v HTML, logika chybí)
 
 ---
 
@@ -206,3 +206,4 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-20 | reference.html: lightbox s multi-foto galerií a počítadlem |
 | 2026-04-20 | reference.html: odstraněny filtry, galerie překreslena na vertikální stack karet (obraz + info) |
 | 2026-04-20 | Aktualizován popis reference Nymburk (památková zóna, břízolit, vápenná omítka) |
+| 2026-04-20 | Implementováno mobilní hamburger menu (toggle, ikona menu/close, zavření po kliknutí) |
