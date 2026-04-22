@@ -211,3 +211,5 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-22 | Odstraněno pole `rok` ze všech referencí; reference.html upravena pro volitelné zobrazení roku |
 | 2026-04-22 | Oprava lokálního prohlížení: index.html – nahrazeny placeholder karty reálnými fotkami; reference.html – doplněn JS fallback s reálnými daty (fetch nefunguje přes file://) |
 | 2026-04-22 | Hodnocení: nahrazena fiktivní za uvěřitelná, navázaná na reálné reference (Kovanice, Chvalovice, Nymburk) |
+| 2026-04-22 | Hodnocení opravena přímo v HTML (sekce byla hardcoded, JS z content.json ji nenačítal) |
+| 2026-04-22 | Hodnocení: příjmení odstraněna, ponechána pouze křestní jména (Jiří, Markéta, Tomáš) |
