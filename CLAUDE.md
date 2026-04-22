@@ -139,9 +139,9 @@ Sídlo:    Kovanice, okres Nymburk
 | Telefon | ✅ Reálný (`+420 603 925 721`) |
 | Email | ✅ Reálný (`znamenacek22@seznam.cz`) |
 | IČO | ✅ Reálný (`69531099`) |
-| Formspree endpoint | ⚠️ Placeholder (`https://formspree.io/f/XXXXXXXX`) |
+| Formspree endpoint | ✅ Reálný (`https://formspree.io/f/xdaywbjr`) |
 | Portrét foto | ✅ Reálný (`img/homepage/o-mne.jpg`) |
-| Hero foto | ⚠️ Stock foto |
+| Hero foto | ✅ Lokálně uloženo (`img/homepage/hero.jpg`) |
 | Reference foto | ✅ 5 reálných zakázek (34 fotek celkem) |
 | Jména v hodnoceních | ⚠️ Vymyšlená (uvěřitelná, navázaná na reálné reference) |
 
@@ -171,7 +171,7 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 
 ## TODO / Rozpracované
 
-- [ ] Nahradit Formspree placeholder reálným endpointem
+- [x] Nahradit Formspree placeholder reálným endpointem
 - [x] Dodat reálný portrét Jiřího
 - [x] Dodat reálné fotky realizací do img/reference/
 - [x] Nahradit fiktivní jména v hodnoceních reálnými
@@ -214,3 +214,5 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-22 | Hodnocení opravena přímo v HTML (sekce byla hardcoded, JS z content.json ji nenačítal) |
 | 2026-04-22 | Hodnocení: příjmení odstraněna, ponechána pouze křestní jména (Jiří, Markéta, Tomáš) |
 | 2026-04-22 | Hodnocení: napojeno na content.json přes JS (id="hodnoceni-grid"), hardcoded HTML slouží jako fallback |
+| 2026-04-22 | Formspree endpoint nastaven na reálný (xdaywbjr) |
+| 2026-04-22 | Hero fotka stažena lokálně do img/homepage/hero.jpg (původně Google CDN) |
