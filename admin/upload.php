@@ -1,5 +1,5 @@
 <?php
-// admin/upload.php — nahraje fotku do img/reference/ a vrátí nový záznam
+// admin/upload.php — nahraje fotku do img/reference/{slug}/ a vrátí nový záznam
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -10,10 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Konfigurace
-define('MAX_SIZE',    8 * 1024 * 1024);   // 8 MB
+define('MAX_SIZE',    8 * 1024 * 1024);
 define('ALLOWED',     ['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
-define('IMG_DIR',     dirname(__DIR__) . '/img/reference/');
-define('IMG_WEB_PATH','img/reference/');  // relativní cesta z rootu webu
+define('REF_DIR',     dirname(__DIR__) . '/img/reference/');
 
 // Ověření nahrávky
 if (empty($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
@@ -33,7 +32,7 @@ if ($file['size'] > MAX_SIZE) {
     exit;
 }
 
-// Kontrola MIME typu (čteme ze souboru, ne z hlavičky)
+// Kontrola MIME typu
 $finfo = finfo_open(FILEINFO_MIME_TYPE);
 $mime  = finfo_file($finfo, $file['tmp_name']);
 finfo_close($finfo);
@@ -43,40 +42,59 @@ if (!in_array($mime, ALLOWED)) {
     exit;
 }
 
-// Připravíme cílovou složku
-if (!is_dir(IMG_DIR)) {
-    if (!mkdir(IMG_DIR, 0755, true)) {
-        echo json_encode(['ok' => false, 'error' => 'Nelze vytvořit složku img/reference/']);
-        exit;
-    }
-}
-
-// Bezpečné unikátní jméno souboru
-$ext      = match($mime) {
+$ext = match($mime) {
     'image/jpeg' => 'jpg',
     'image/png'  => 'png',
     'image/webp' => 'webp',
     'image/gif'  => 'gif',
     default      => 'jpg'
 };
-$basename = 'ref_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-$dest     = IMG_DIR . $basename;
+
+// Slug z názvu projektu
+$nazev = trim($_POST['nazev'] ?? '');
+if (empty($nazev)) {
+    echo json_encode(['ok' => false, 'error' => 'Vyplňte název projektu']);
+    exit;
+}
+
+$slug = mb_strtolower($nazev, 'UTF-8');
+$slug = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $slug);
+$slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
+$slug = trim($slug, '-');
+if (empty($slug)) $slug = 'reference';
+
+// Pokud složka existuje, přidáme suffix
+$folderName = $slug;
+$i = 2;
+while (is_dir(REF_DIR . $folderName) && $i < 100) {
+    $folderName = $slug . '-' . $i++;
+}
+
+$folderPath = REF_DIR . $folderName . '/';
+if (!mkdir($folderPath, 0755, true)) {
+    echo json_encode(['ok' => false, 'error' => 'Nelze vytvořit složku']);
+    exit;
+}
+
+// Soubor: {slug}-01.jpg
+$filename = $folderName . '-01.' . $ext;
+$dest     = $folderPath . $filename;
 
 if (!move_uploaded_file($file['tmp_name'], $dest)) {
     echo json_encode(['ok' => false, 'error' => 'Nepodařilo se uložit soubor']);
     exit;
 }
 
-// Sestavíme nový záznam pro content.json
+// Záznam v nové folder+images struktuře
 $item = [
-    'id'        => time(),
-    'src'       => IMG_WEB_PATH . $basename,
-    'nazev'     => htmlspecialchars(trim($_POST['nazev']    ?? ''), ENT_QUOTES, 'UTF-8'),
+    'id'        => $folderName,
+    'folder'    => 'img/reference/' . $folderName,
+    'nazev'     => htmlspecialchars($nazev, ENT_QUOTES, 'UTF-8'),
     'misto'     => htmlspecialchars(trim($_POST['misto']    ?? ''), ENT_QUOTES, 'UTF-8'),
-    'rok'       => (int)($_POST['rok']       ?? date('Y')),
     'popis'     => htmlspecialchars(trim($_POST['popis']    ?? ''), ENT_QUOTES, 'UTF-8'),
     'kategorie' => in_array($_POST['kategorie'] ?? '', ['zdeni','omitky','obklady','rekonstrukce'])
                    ? $_POST['kategorie'] : 'zdeni',
+    'images'    => [$filename],
 ];
 
 echo json_encode(['ok' => true, 'item' => $item]);

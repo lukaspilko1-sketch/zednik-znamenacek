@@ -216,3 +216,4 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-22 | Hodnocení: napojeno na content.json přes JS (id="hodnoceni-grid"), hardcoded HTML slouží jako fallback |
 | 2026-04-22 | Formspree endpoint nastaven na reálný (xdaywbjr) |
 | 2026-04-22 | Hero fotka stažena lokálně do img/homepage/hero.jpg (původně Google CDN) |
+| 2026-04-22 | Admin panel: opraven reference grid (nová folder+images[] struktura), odstraněn rok, aktualizován upload.php |

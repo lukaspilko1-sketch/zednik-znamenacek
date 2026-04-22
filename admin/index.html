@@ -230,7 +230,6 @@ select:focus{outline:none;border-color:#9c4329}
             <div class="ref-form-grid">
               <div class="field"><label>Název projektu</label><input type="text" id="new_nazev" placeholder="Omítky – rodinný dům"/></div>
               <div class="field"><label>Místo</label><input type="text" id="new_misto" placeholder="Praha"/></div>
-              <div class="field"><label>Rok</label><input type="number" id="new_rok" min="2000" max="2030" placeholder="2024"/></div>
               <div class="field">
                 <label>Kategorie</label>
                 <select id="new_kategorie">
@@ -281,16 +280,15 @@ select:focus{outline:none;border-color:#9c4329}
     <div class="field"><label>Název projektu</label><input type="text" id="edit_nazev"/></div>
     <div class="field-row">
       <div class="field"><label>Místo</label><input type="text" id="edit_misto"/></div>
-      <div class="field"><label>Rok</label><input type="number" id="edit_rok"/></div>
-    </div>
-    <div class="field">
-      <label>Kategorie</label>
-      <select id="edit_kategorie">
-        <option value="zdeni">Zdění</option>
-        <option value="omitky">Omítky</option>
-        <option value="obklady">Obklady &amp; dlažby</option>
-        <option value="rekonstrukce">Rekonstrukce</option>
-      </select>
+      <div class="field">
+        <label>Kategorie</label>
+        <select id="edit_kategorie">
+          <option value="zdeni">Zdění</option>
+          <option value="omitky">Omítky</option>
+          <option value="obklady">Obklady &amp; dlažby</option>
+          <option value="rekonstrukce">Rekonstrukce</option>
+        </select>
+      </div>
     </div>
     <div class="field"><label>Popis</label><textarea id="edit_popis" rows="3"></textarea></div>
     <div class="modal-actions">
@@ -463,21 +461,27 @@ function renderSluzby() {
 function renderRefGrid() {
   const grid = document.getElementById('ref-grid');
   const refs = DATA.reference || [];
-  document.getElementById('ref-count').textContent = refs.length + ' fotek';
+  document.getElementById('ref-count').textContent = refs.length + ' realizací';
   if (!refs.length) { grid.innerHTML = '<p style="color:#89756e;font-size:13px">Zatím žádné reference.</p>'; return; }
-  grid.innerHTML = refs.map((r, i) => `
+  grid.innerHTML = refs.map((r, i) => {
+    // Nová struktura: folder + images[], stará: src
+    const thumb = r.folder && r.images?.length
+      ? '../' + r.folder + '/' + r.images[0]
+      : '../' + (r.src || '');
+    const pocet = r.images ? r.images.length + ' foto' : '';
+    return `
     <div class="ref-item">
-      <img src="../${r.src}" alt="${e(r.nazev)}" onerror="this.style.background='#f0ece6';this.style.minHeight='80px'"/>
+      <img src="${thumb}" alt="${e(r.nazev)}" onerror="this.style.background='#f0ece6';this.style.minHeight='80px'"/>
       <div class="ref-item-body">
         <div class="ref-item-title">${e(r.nazev)}</div>
-        <div class="ref-item-meta">${r.misto} · ${r.rok}</div>
+        <div class="ref-item-meta">${e(r.misto)}${pocet ? ' · ' + pocet : ''}</div>
         <div class="ref-item-actions">
           <button class="btn btn-secondary btn-sm" onclick="editRef(${i})">Upravit</button>
           <button class="btn btn-danger btn-sm" onclick="deleteRef(${i})">Smazat</button>
         </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 /* ── Render: Hodnocení ── */
@@ -525,7 +529,6 @@ async function uploadRef() {
   fd.append('foto', pendingFile);
   fd.append('nazev',     nazev);
   fd.append('misto',     document.getElementById('new_misto').value.trim());
-  fd.append('rok',       document.getElementById('new_rok').value);
   fd.append('kategorie', document.getElementById('new_kategorie').value);
   fd.append('popis',     document.getElementById('new_popis').value.trim());
 
@@ -550,11 +553,10 @@ async function uploadRef() {
 function editRef(i) {
   editingRefIdx = i;
   const r = DATA.reference[i];
-  document.getElementById('edit_nazev').value = r.nazev;
-  document.getElementById('edit_misto').value = r.misto;
-  document.getElementById('edit_rok').value   = r.rok;
+  document.getElementById('edit_nazev').value     = r.nazev;
+  document.getElementById('edit_misto').value     = r.misto;
   document.getElementById('edit_kategorie').value = r.kategorie;
-  document.getElementById('edit_popis').value = r.popis;
+  document.getElementById('edit_popis').value     = r.popis;
   document.getElementById('refModal').classList.add('open');
 }
 
@@ -568,7 +570,6 @@ async function saveRefEdit() {
   const r = DATA.reference[editingRefIdx];
   r.nazev     = document.getElementById('edit_nazev').value;
   r.misto     = document.getElementById('edit_misto').value;
-  r.rok       = parseInt(document.getElementById('edit_rok').value);
   r.kategorie = document.getElementById('edit_kategorie').value;
   r.popis     = document.getElementById('edit_popis').value;
   closeModal();
