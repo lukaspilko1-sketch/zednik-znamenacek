@@ -37,8 +37,8 @@
     { "id": "07", "kategorie": "Střechy",  "nazev": "Rekonstrukce střech",     "popis": "Tradiční pálená taška, betonová krytina, plechové střechy. Opravy i kompletní nové střešní pláště." }
   ],
   "hodnoceni": [
-    { "text": "Svěřili jsme panu Znamenáčkovi celou rekonstrukci domku — od základů po střechu. Byl na místě skoro každý den, vždy věděl, co dělá, a výsledná cena seděla přesně s tím, co jsme si na začátku domluvili. Nic nás nepřekvapilo.", "autor": "Jiří", "mesto": "Kovanice" },
-    { "text": "Dělali jsme zateplení a chtěli jsme k tomu kamenný obklad soklu. Jiní řemeslníci nás od toho zrazovali, Jiří to vzal bez mrknutí oka. Výsledek předčil očekávání a dům konečně nevypadá jako z devadesátek.", "autor": "Markéta", "mesto": "Chvalovice" },
+    { "text": "Svěřili jsme panu Znamenáčkovi celou rekonstrukci domku. Byl na místě skoro každý den, vždy věděl, co dělá, a výsledná cena seděla přesně s tím, co jsme si na začátku domluvili. Nic nás nepřekvapilo.", "autor": "Jiří", "mesto": "Kovanice" },
+    { "text": "Dělali jsme zateplení a chtěli jsme k tomu kamenný obklad. Jiní řemeslníci nás od toho zrazovali, Jiří to vzal bez mrknutí oka. Výsledek předčil očekávání.", "autor": "Markéta", "mesto": "Chvalovice" },
     { "text": "Potřebovali jsme z podkroví udělat normální místnost. Pan Znamenáček přišel, podíval se a hned navrhoval věci, na který bychom sami nepřišli. Práce šla rychle, nezanechal po sobě bordel a komunikace byla bezproblémová.", "autor": "Tomáš", "mesto": "Nymburk" }
   ],
   "reference": [
