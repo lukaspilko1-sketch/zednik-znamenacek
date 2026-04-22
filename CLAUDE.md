@@ -36,7 +36,8 @@ Cíl: osobní, důvěryhodná prezentace. Motto: „Nejsem firma, jsem Jiří Zn
 | `admin/save.php` | Ukládání content.json přes POST |
 | `admin/upload.php` | Nahrávání fotek do img/reference/ |
 | `admin/.htaccess` | HTTP Basic Auth ochrana adminu |
-| `img/reference/` | Fotky realizací (ref1.jpg … ref8.jpg + nové) |
+| `img/reference/` | Fotky realizací – každá zakázka = vlastní podsložka |
+| `img/homepage/` | Fotky pro homepage: `hero.jpg`, `o-mne.jpg` |
 
 ---
 
@@ -111,7 +112,7 @@ Eyebrow:  Manrope, 0.7rem, uppercase, tracking 0.18em, barva #9c4329
   "o_mne": { "nadpis", "text1", "text2", "bullet1", "bullet2", "bullet3" },
   "sluzby": [ { "id", "kategorie", "nazev", "popis" } ],
   "hodnoceni": [ { "text", "autor", "mesto" } ],
-  "reference": [ { "id", "src", "nazev", "misto", "rok", "popis", "kategorie" } ]
+  "reference": [ { "id", "folder", "nazev", "misto", "popis", "kategorie", "images": [] } ]
 }
 ```
 
@@ -154,16 +155,17 @@ Každá reference = podsložka v `img/reference/` ve formátu `YYYY-MM-popis-lok
 **Struktura v content.json:**
 ```json
 {
-  "id": "YYYY-MM-popis-lokace",
-  "folder": "img/reference/YYYY-MM-popis-lokace",
+  "id": "popis-lokace",
+  "folder": "img/reference/popis-lokace",
   "nazev": "Lidsky čitelný název",
   "misto": "Město",
-  "rok": YYYY,
   "popis": "Popis zakázky.",
   "kategorie": "zdeni|omitky|obklady|rekonstrukce",
   "images": ["soubor-01.jpg", "soubor-02.jpg", ...]
 }
 ```
+
+> Pole `rok` bylo odstraněno. Thumbnail = `images[0]`.
 
 Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne mezi referencemi).
 
@@ -184,9 +186,10 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 
 - **Vizuální styl:** Swiss International / Editorial – ostré rohy, mřížka, typografický důraz
 - **Verze:** v7 byl bold/editorial základ, v8 je finální merge s lepšími prvky z v6
-- **reference.html** je napojena na content.json (fetch při init), ne na hardcoded REFERENCE pole
-- **Admin panel** volá `save.php` a `upload.php` – funguje pouze na PHP hostingu
-- Stránka funguje i bez content.json (fallback na pevné texty v HTML)
+- **reference.html** napojená na content.json (fetch při init); JS fallback s reálnými daty pro file:// protokol
+- **index.html hodnocení** — načítá se z content.json přes JS (`id="hodnoceni-grid"`); hardcoded HTML v souboru slouží jako fallback. Při změně hodnocení stačí upravit jen content.json.
+- **Admin panel** volá `save.php` a `upload.php` – funguje pouze na PHP hostingu; upload.php generuje novou folder+images[] strukturu
+- Lokální vývoj: spustit přes `npx serve .` v kořenu projektu (fetch nefunguje přes file://)
 - Google Maps embed v kontaktu: souřadnice Kovanice (50.1817, 15.1183)
 
 ---
