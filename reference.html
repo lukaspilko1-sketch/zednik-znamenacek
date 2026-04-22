@@ -585,8 +585,44 @@ async function init() {
     const data = await r.json();
     REFERENCE = data.reference || [];
   } catch(err) {
-    console.warn('Nelze načíst content.json', err);
-    REFERENCE = [];
+    console.warn('Nelze načíst content.json, používám záložní data.', err);
+    REFERENCE = [
+      {
+        id: "kompletni-rekonstrukce-rodinneho-domu-kovanice",
+        folder: "img/reference/kompletni-rekonstrukce-rodinneho-domu-kovanice",
+        nazev: "Kompletní rekonstrukce rodinného domu – Kovanice",
+        misto: "Kovanice", popis: "", kategorie: "rekonstrukce",
+        images: ["kompletni-rekonstrukce-rodinneho-domu-kovanice-01.jpg","kompletni-rekonstrukce-rodinneho-domu-kovanice-02.jpg","kompletni-rekonstrukce-rodinneho-domu-kovanice-03.jpg","kompletni-rekonstrukce-rodinneho-domu-kovanice-04.jpg","kompletni-rekonstrukce-rodinneho-domu-kovanice-05.jpg","kompletni-rekonstrukce-rodinneho-domu-kovanice-06.jpg","kompletni-rekonstrukce-rodinneho-domu-kovanice-07.jpg","kompletni-rekonstrukce-rodinneho-domu-kovanice-08.jpg"]
+      },
+      {
+        id: "rekonstrukce-podkrovi-dlouha-trida-nymburk",
+        folder: "img/reference/rekonstrukce-podkrovi-dlouha-trida-nymburk",
+        nazev: "Rekonstrukce podkroví – Nymburk",
+        misto: "Nymburk", popis: "", kategorie: "rekonstrukce",
+        images: ["rekonstrukce-podkrovi-dlouha-trida-nymburk-01.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-02.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-03.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-04.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-05.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-06.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-07.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-08.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-09.jpg","rekonstrukce-podkrovi-dlouha-trida-nymburk-10.jpg"]
+      },
+      {
+        id: "zatepleni-domu-kamenny-obklad-chvalovice",
+        folder: "img/reference/zatepleni-domu-kamenny-obklad-chvalovice",
+        nazev: "Zateplení domu s kamenným obkladem – Chvalovice",
+        misto: "Chvalovice", popis: "", kategorie: "obklady",
+        images: ["zatepleni-domu-kamenny-obklad-chvalovice-01.jpg","zatepleni-domu-kamenny-obklad-chvalovice-02.jpg","zatepleni-domu-kamenny-obklad-chvalovice-03.jpg","zatepleni-domu-kamenny-obklad-chvalovice-04.jpg","zatepleni-domu-kamenny-obklad-chvalovice-05.jpg"]
+      },
+      {
+        id: "2026-04-oprava-omitky-nymburk",
+        folder: "img/reference/2026-04-oprava-omitky-nymburk",
+        nazev: "Oprava omítky – Nymburk",
+        misto: "Nymburk", popis: "Oprava omítky a zdobené římsy v památkové zóně v centru Nymburka. Aplikace tradičního břízolitu, modelování a oprava členité, historické římsy vápennou omítkou. Nový nátěr celé fasády.", kategorie: "omitky",
+        images: ["2026-04-oprava-omitky-nymburk-01.jpg","2026-04-oprava-omitky-nymburk-02.jpg","2026-04-oprava-omitky-nymburk-03.jpg","2026-04-oprava-omitky-nymburk-04.jpg","2026-04-oprava-omitky-nymburk-05.jpg","2026-04-oprava-omitky-nymburk-07.jpg","2026-04-oprava-omitky-nymburk-08.jpg","2026-04-oprava-omitky-nymburk-09.jpg","2026-04-oprava-omitky-nymburk-10.jpg","2026-04-oprava-omitky-nymburk-11.jpg"]
+      },
+      {
+        id: "rekonstrukce-strechy-pudy-kovanice",
+        folder: "img/reference/rekonstrukce-strechy-pudy-kovanice",
+        nazev: "Rekonstrukce střechy a půdy – Kovanice",
+        misto: "Kovanice", popis: "", kategorie: "rekonstrukce",
+        images: ["rekonstrukce-strechy-pudy-kovanice-01.jpg","rekonstrukce-strechy-pudy-kovanice-02.jpg","rekonstrukce-strechy-pudy-kovanice-03.jpg","rekonstrukce-strechy-pudy-kovanice-04.jpg","rekonstrukce-strechy-pudy-kovanice-05.jpg","rekonstrukce-strechy-pudy-kovanice-06.jpg","rekonstrukce-strechy-pudy-kovanice-07.jpg","rekonstrukce-strechy-pudy-kovanice-08.jpg","rekonstrukce-strechy-pudy-kovanice-09.jpg","rekonstrukce-strechy-pudy-kovanice-10.jpg","rekonstrukce-strechy-pudy-kovanice-11.jpg"]
+      }
+    ];
   }
   renderGallery();
 }

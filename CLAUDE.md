@@ -209,3 +209,4 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-20 | Implementováno mobilní hamburger menu (toggle, ikona menu/close, zavření po kliknutí) |
 | 2026-04-22 | Přidány 4 nové reference: kompletní rekonstrukce Kovanice, podkroví Nymburk, střecha+půda Kovanice, zateplení+obklad Chvalovice |
 | 2026-04-22 | Odstraněno pole `rok` ze všech referencí; reference.html upravena pro volitelné zobrazení roku |
+| 2026-04-22 | Oprava lokálního prohlížení: index.html – nahrazeny placeholder karty reálnými fotkami; reference.html – doplněn JS fallback s reálnými daty (fetch nefunguje přes file://) |
