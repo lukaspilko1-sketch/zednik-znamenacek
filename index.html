@@ -605,11 +605,11 @@
     <h2 class="font-serif font-black text-white mb-4" style="font-size: clamp(2rem, 4.5vw, 3rem);">Co říkají klienti</h2>
     <p class="text-white/70 max-w-xl mx-auto text-base leading-relaxed">Zpětná vazba od lidí, pro které jsem stavěl, opravoval nebo omítal.</p>
   </div>
-  <div class="grid md:grid-cols-3 gap-6">
+  <div class="grid md:grid-cols-3 gap-6" id="hodnoceni-grid">
 
     <div class="testimonial-card swiss-quote p-8 border-t-2 border-[#c9a87c]/60">
       <div class="text-[4rem] font-serif leading-none text-[#c9a87c]/40 select-none mb-2">"</div>
-      <p class="font-serif italic text-lg leading-relaxed mb-8 text-white/90">Svěřili jsme panu Znamenáčkovi celou rekonstrukci domku — od základů po střechu. Byl na místě skoro každý den, vždy věděl, co dělá, a výsledná cena seděla přesně s tím, co jsme si na začátku domluvili. Nic nás nepřekvapilo.</p>
+      <p class="font-serif italic text-lg leading-relaxed mb-8 text-white/90">Svěřili jsme panu Znamenáčkovi celou rekonstrukci domku. Byl na místě skoro každý den, vždy věděl, co dělá, a výsledná cena seděla přesně s tím, co jsme si na začátku domluvili. Nic nás nepřekvapilo.</p>
       <div class="flex items-center gap-4 pt-5 border-t border-white/10">
         <div class="w-8 h-8 bg-[#c9a87c]/30 flex items-center justify-center flex-shrink-0 text-[#c9a87c] font-black font-serif text-sm">J</div>
         <div>
@@ -621,7 +621,7 @@
 
     <div class="testimonial-card swiss-quote p-8 border-t-2 border-[#c9a87c]/60">
       <div class="text-[4rem] font-serif leading-none text-[#c9a87c]/40 select-none mb-2">"</div>
-      <p class="font-serif italic text-lg leading-relaxed mb-8 text-white/90">Dělali jsme zateplení a chtěli jsme k tomu kamenný obklad soklu. Jiní řemeslníci nás od toho zrazovali, Jiří to vzal bez mrknutí oka. Výsledek předčil očekávání a dům konečně nevypadá jako z devadesátek.</p>
+      <p class="font-serif italic text-lg leading-relaxed mb-8 text-white/90">Dělali jsme zateplení a chtěli jsme k tomu kamenný obklad. Jiní řemeslníci nás od toho zrazovali, Jiří to vzal bez mrknutí oka. Výsledek předčil očekávání.</p>
       <div class="flex items-center gap-4 pt-5 border-t border-white/10">
         <div class="w-8 h-8 bg-[#c9a87c]/30 flex items-center justify-center flex-shrink-0 text-[#c9a87c] font-black font-serif text-sm">M</div>
         <div>
@@ -861,6 +861,25 @@
       // Footer IČO řádek
       const icoEl = document.getElementById('footer-ico');
       if (icoEl) icoEl.innerHTML = k.jmeno + '<br/>IČO: ' + k.ico + '<br/>Nejsem plátce DPH.';
+    }
+
+    // Hodnocení
+    if (d.hodnoceni && d.hodnoceni.length) {
+      const grid = document.getElementById('hodnoceni-grid');
+      if (grid) {
+        grid.innerHTML = d.hodnoceni.map(h => `
+          <div class="testimonial-card swiss-quote p-8 border-t-2 border-[#c9a87c]/60">
+            <div class="text-[4rem] font-serif leading-none text-[#c9a87c]/40 select-none mb-2">"</div>
+            <p class="font-serif italic text-lg leading-relaxed mb-8 text-white/90">${h.text}</p>
+            <div class="flex items-center gap-4 pt-5 border-t border-white/10">
+              <div class="w-8 h-8 bg-[#c9a87c]/30 flex items-center justify-center flex-shrink-0 text-[#c9a87c] font-black font-serif text-sm">${h.autor.charAt(0)}</div>
+              <div>
+                <div class="font-bold text-sm tracking-wide">${h.autor}</div>
+                <div class="text-xs text-white/50 uppercase tracking-[0.12em]">${h.mesto}</div>
+              </div>
+            </div>
+          </div>`).join('');
+      }
     }
 
     // Reference — náhled 4 fotek na hlavní stránce

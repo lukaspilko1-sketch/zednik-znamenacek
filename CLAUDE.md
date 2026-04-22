@@ -213,3 +213,4 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-22 | Hodnocení: nahrazena fiktivní za uvěřitelná, navázaná na reálné reference (Kovanice, Chvalovice, Nymburk) |
 | 2026-04-22 | Hodnocení opravena přímo v HTML (sekce byla hardcoded, JS z content.json ji nenačítal) |
 | 2026-04-22 | Hodnocení: příjmení odstraněna, ponechána pouze křestní jména (Jiří, Markéta, Tomáš) |
+| 2026-04-22 | Hodnocení: napojeno na content.json přes JS (id="hodnoceni-grid"), hardcoded HTML slouží jako fallback |
