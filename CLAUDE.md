@@ -143,7 +143,7 @@ Sídlo:    Kovanice, okres Nymburk
 | Portrét foto | ✅ Reálný (`img/homepage/o-mne.jpg`) |
 | Hero foto | ⚠️ Stock foto |
 | Reference foto | ✅ 5 reálných zakázek (34 fotek celkem) |
-| Jména v hodnoceních | ⚠️ Fiktivní (Marek Svoboda, Jana Nováková, Petr Černý) |
+| Jména v hodnoceních | ⚠️ Vymyšlená (uvěřitelná, navázaná na reálné reference) |
 
 ## Struktura referencí (standardizovaná)
 
@@ -174,7 +174,7 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 - [ ] Nahradit Formspree placeholder reálným endpointem
 - [x] Dodat reálný portrét Jiřího
 - [x] Dodat reálné fotky realizací do img/reference/
-- [ ] Nahradit fiktivní jména v hodnoceních reálnými
+- [x] Nahradit fiktivní jména v hodnoceních reálnými
 - [ ] Nastavit .htpasswd pro admin panel (změnit doménu v .htaccess)
 - [x] Mobilní menu (hamburger button je v HTML, logika chybí)
 
@@ -210,3 +210,4 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-22 | Přidány 4 nové reference: kompletní rekonstrukce Kovanice, podkroví Nymburk, střecha+půda Kovanice, zateplení+obklad Chvalovice |
 | 2026-04-22 | Odstraněno pole `rok` ze všech referencí; reference.html upravena pro volitelné zobrazení roku |
 | 2026-04-22 | Oprava lokálního prohlížení: index.html – nahrazeny placeholder karty reálnými fotkami; reference.html – doplněn JS fallback s reálnými daty (fetch nefunguje přes file://) |
+| 2026-04-22 | Hodnocení: nahrazena fiktivní za uvěřitelná, navázaná na reálné reference (Kovanice, Chvalovice, Nymburk) |
