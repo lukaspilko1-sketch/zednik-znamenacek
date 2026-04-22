@@ -507,7 +507,7 @@ function renderGallery() {
         <div>
           <span class="card-badge">${KAT_NAZVY[ref.kategorie] || ref.kategorie}</span>
           <h3 class="card-title">${ref.nazev}</h3>
-          <div class="card-meta">${ref.misto} &middot; ${ref.rok}</div>
+          <div class="card-meta">${ref.misto}${ref.rok ? ' &middot; ' + ref.rok : ''}</div>
           <p class="card-popis">${ref.popis}</p>
         </div>
         <div class="card-footer">
@@ -551,7 +551,7 @@ function renderLb() {
   document.getElementById("lbMeta").innerHTML =
     `<span class="lb-tag">${KAT_NAZVY[ref.kategorie] || ref.kategorie}</span>
      <span class="lb-tag">${ref.misto}</span>
-     <span class="lb-tag">${ref.rok}</span>`;
+     ${ref.rok ? `<span class="lb-tag">${ref.rok}</span>` : ''}`;
 
   // počítadlo a viditelnost nav
   const counter = document.getElementById("lbCounter");

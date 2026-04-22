@@ -142,7 +142,7 @@ Sídlo:    Kovanice, okres Nymburk
 | Formspree endpoint | ⚠️ Placeholder (`https://formspree.io/f/XXXXXXXX`) |
 | Portrét foto | ✅ Reálný (`img/homepage/o-mne.jpg`) |
 | Hero foto | ⚠️ Stock foto |
-| Reference foto | ✅ Reálná zakázka `2026-04-oprava-omitky-nymburk` (10 fotek) |
+| Reference foto | ✅ 5 reálných zakázek (34 fotek celkem) |
 | Jména v hodnoceních | ⚠️ Fiktivní (Marek Svoboda, Jana Nováková, Petr Černý) |
 
 ## Struktura referencí (standardizovaná)
@@ -207,3 +207,5 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-20 | reference.html: odstraněny filtry, galerie překreslena na vertikální stack karet (obraz + info) |
 | 2026-04-20 | Aktualizován popis reference Nymburk (památková zóna, břízolit, vápenná omítka) |
 | 2026-04-20 | Implementováno mobilní hamburger menu (toggle, ikona menu/close, zavření po kliknutí) |
+| 2026-04-22 | Přidány 4 nové reference: kompletní rekonstrukce Kovanice, podkroví Nymburk, střecha+půda Kovanice, zateplení+obklad Chvalovice |
+| 2026-04-22 | Odstraněno pole `rok` ze všech referencí; reference.html upravena pro volitelné zobrazení roku |
