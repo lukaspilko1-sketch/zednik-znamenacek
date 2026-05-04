@@ -220,3 +220,5 @@ Thumbnail = `images[0]`. Lightbox prochází všechny fotky dané reference (ne 
 | 2026-04-22 | Formspree endpoint nastaven na reálný (xdaywbjr) |
 | 2026-04-22 | Hero fotka stažena lokálně do img/homepage/hero.jpg (původně Google CDN) |
 | 2026-04-22 | Admin panel: opraven reference grid (nová folder+images[] struktura), odstraněn rok, aktualizován upload.php |
+| 2026-05-04 | content.json: reference přepsány na nový folder-based formát (5 reálných zakázek, odstraněna fiktivní data ref1–ref8) |
+| 2026-05-04 | reference.html: fallback data synchronizována s content.json – doplněny popisy, sjednoceny názvy a pořadí |
