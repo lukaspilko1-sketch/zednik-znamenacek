@@ -1,4 +1,6 @@
 AuthType Basic
 AuthName "Sprava webu"
-AuthUserFile /var/www/vhosts/VASE-DOMENA.cz/.htpasswd
+# Cestu k .htpasswd zjistis v hostingovem panelu (obvykle /www/data/DOMENA.cz/.htpasswd)
+# nebo spust: php -r "echo realpath('../.htpasswd');"
+AuthUserFile /www/data/znamenacek.cz/.htpasswd
 Require valid-user

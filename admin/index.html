@@ -509,7 +509,6 @@ function prepareUpload(file) {
   reader.onload = ev => {
     document.getElementById('preview-img').src = ev.target.result;
     document.getElementById('upload-preview').style.display = 'block';
-    document.getElementById('new_rok').value = new Date().getFullYear();
   };
   reader.readAsDataURL(file);
 }
