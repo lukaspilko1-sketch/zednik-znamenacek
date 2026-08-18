@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /content.json.bak
 
-Sitemap: https://www.znamenacek-zednictvi.cz/sitemap.xml
+Sitemap: https://zednik-nymburk.cz/sitemap.xml
